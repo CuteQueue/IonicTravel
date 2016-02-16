@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ui.router'])
 
 .controller('DashCtrl', function($scope) {})
 
@@ -38,7 +38,7 @@ angular.module('starter.controllers', [])
  
             $auth.login(credentials).then(function() {
                 // Return an $http request for the authenticated user
-                $http.get('http://localhost:8000/api/v1/user/login/user').success(function(response){
+                $http.get('http://localhost:8000/api/v1/authenticate/user').success(function(response){
                     // Stringify the retured data
                     var user = JSON.stringify(response.user);
  
@@ -53,7 +53,7 @@ angular.module('starter.controllers', [])
                       disableBack: true
                     });
  
-                    $state.go('app.users');
+                    $state.go('tab.users');
                 })
                 .error(function(){
                     $scope.loginError = true;
@@ -65,6 +65,7 @@ angular.module('starter.controllers', [])
  
 })
  
+
 .controller('UsersCtrl', function($scope){
     $scope.users = [
       { user: 'First User', id: 1 },
