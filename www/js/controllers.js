@@ -26,6 +26,12 @@ angular.module('starter.controllers', ['ui.router'])
         $scope.loginData = {}
         $scope.loginError = false;
         $scope.loginErrorText;
+
+        $scope.name = '';
+        $scope.email='';
+        $scope.password='';
+        $scope.newUser={};
+  
  
         $scope.login = function() {
 
@@ -65,6 +71,17 @@ angular.module('starter.controllers', ['ui.router'])
                 })
             });
         }
+
+        $scope.register = function () {
+ 
+            $http.post('http://localhost:8000/api/v1/user',$scope.newUser)
+                .success(function(data){
+                    $scope.email=$scope.newUser.email;
+                    $scope.password=$scope.newUser.password;
+                    $scope.login();
+            })
+ 
+        };
  
 })
 
