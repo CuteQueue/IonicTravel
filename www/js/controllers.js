@@ -64,15 +64,37 @@ angular.module('starter.controllers', ['ui.router'])
         }
  
 })
- 
 
-.controller('UsersCtrl', function($scope){
-    $scope.users = [
-      { user: 'First User', id: 1 },
-      { user: 'Second User', id: 2 },
-      { user: 'Third User', id: 3 }
-    ];
+
+
+.controller('UsersCtrl', function($scope, $http, $auth) {
+  $scope.users = null;
+
+  $http.get('http://localhost:8000/api/v1/authenticate/user').then(function(result) {
+      $scope.users = result.data;
+  });
+
 })
+
+
+
+
+.controller('TabCtrl', function($scope, $auth, $ionicHistory, $state){
+  $scope.logout = function() {
+      localStorage.clear();
+      $ionicHistory.nextViewOptions({
+        disableBack: true
+      });
+ 
+      $state.go('auth');
+  };
+
+  $scope.isAuthenticated = function() {
+    return $auth.isAuthenticated();
+  };
+})
+
+
 
 .controller('AccountCtrl', function($scope) {
   $scope.settings = {

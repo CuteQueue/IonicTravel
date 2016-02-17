@@ -9,7 +9,7 @@
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'satellizer'])
 
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope, $auth, $state) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -23,7 +23,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       StatusBar.styleDefault();
     }
   });
+
+  //Überprüfung, ob User schon eingeloggt ist
+  $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+        console.log("TEST");
+      if (toState.authRequired && !$auth.isAuthenticated()){ 
+        // User isn’t authenticated
+        console.log("Nicht eingeloggt");
+        $state.transitionTo("auth");
+        event.preventDefault(); 
+      }
+    });
 })
+
 .config(function($stateProvider, $urlRouterProvider, $authProvider) {
   $authProvider.loginUrl = 'http://localhost:8000/api/v1/authenticate';
   
@@ -43,17 +55,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     .state('tab', {
     url: '/tab',
     abstract: true,
-    templateUrl: 'templates/tabs.html'
+    templateUrl: 'templates/tabs.html',
+    controller: 'TabCtrl',
   })
 
   // Each tab has its own nav history stack:
 
   .state('tab.dash', {
     url: '/dash',
+    authRequired: true,
     views: {
       'tab-dash': {
         templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
+        controller: 'DashCtrl',
       }
     }
   })
@@ -61,48 +75,51 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   .state('tab.chats', {
       url: '/chats',
+      authRequired: true,
       views: {
         'tab-chats': {
           templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
+          controller: 'ChatsCtrl',
         }
       }
     })
     .state('tab.chat-detail', {
       url: '/chats/:chatId',
+      authRequired: true,
       views: {
         'tab-chats': {
           templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
+          controller: 'ChatDetailCtrl',
         }
       }
     })
 
-
  
   .state('tab.users', {
     url: '/users',
+    authRequired: true,
     views: {
       'tab-users': {
         templateUrl: 'templates/users.html',
         controller: 'UsersCtrl',
-        //authenticate: true
       }
     }
   })
+  
 
   .state('tab.account', {
     url: '/account',
+    authRequired: true,
     views: {
       'tab-account': {
         templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+        controller: 'AccountCtrl',
       }
     }
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/auth');
+  $urlRouterProvider.otherwise('/tab/dash');
 
 
 });
