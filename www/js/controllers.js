@@ -79,7 +79,7 @@ angular.module('starter.controllers', ['ui.router'])
                     $scope.name=$scope.newUser.name;
                     $scope.email=$scope.newUser.email;
                     $scope.password=$scope.newUser.password;
-                    $scope.login();
+                    //$scope.login();
             })
  
         };
