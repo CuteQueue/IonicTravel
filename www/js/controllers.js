@@ -76,6 +76,7 @@ angular.module('starter.controllers', ['ui.router'])
  
             $http.post('http://localhost:8000/api/v1/user',$scope.newUser)
                 .success(function(data){
+                    $scope.name=$scope.newUser.name;
                     $scope.email=$scope.newUser.email;
                     $scope.password=$scope.newUser.password;
                     $scope.login();
