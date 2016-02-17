@@ -46,8 +46,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   $stateProvider
 
     .state('auth', {
+      cache:false,
       url: '/auth',
           templateUrl: 'templates/login.html',
+          controller: 'AuthCtrl'
+    })
+
+    .state('register', {
+      cache:false,
+      url: '/register',
+          templateUrl: 'templates/register.html',
           controller: 'AuthCtrl'
     })
 
@@ -62,6 +70,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   // Each tab has its own nav history stack:
 
   .state('tab.dash', {
+    cache:false,
     url: '/dash',
     authRequired: true,
     views: {
@@ -74,6 +83,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
 
   .state('tab.chats', {
+      cache:false,
       url: '/chats',
       authRequired: true,
       views: {
@@ -84,6 +94,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     })
     .state('tab.chat-detail', {
+      cache:false,
       url: '/chats/:chatId',
       authRequired: true,
       views: {
@@ -108,6 +119,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   
 
   .state('tab.account', {
+    cache:false,
     url: '/account',
     authRequired: true,
     views: {
