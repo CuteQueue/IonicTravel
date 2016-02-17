@@ -28,6 +28,9 @@ angular.module('starter.controllers', ['ui.router'])
         $scope.loginErrorText;
  
         $scope.login = function() {
+
+            $ionicHistory.clearCache();
+            $ionicHistory.clearHistory();
  
             var credentials = {
                 email: $scope.loginData.email,
@@ -82,6 +85,8 @@ angular.module('starter.controllers', ['ui.router'])
 .controller('TabCtrl', function($scope, $auth, $ionicHistory, $state){
   $scope.logout = function() {
       localStorage.clear();
+      $ionicHistory.clearCache();
+      $ionicHistory.clearHistory();
       $ionicHistory.nextViewOptions({
         disableBack: true
       });

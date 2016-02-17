@@ -46,6 +46,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   $stateProvider
 
     .state('auth', {
+      //cache : false,
       url: '/auth',
           templateUrl: 'templates/login.html',
           controller: 'AuthCtrl'
@@ -53,15 +54,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   // setup an abstract state for the tabs directive
     .state('tab', {
-    url: '/tab',
-    abstract: true,
-    templateUrl: 'templates/tabs.html',
-    controller: 'TabCtrl',
-  })
+      //cache : false,
+      url: '/tab',
+      abstract: true,
+      templateUrl: 'templates/tabs.html',
+      controller: 'TabCtrl',
+    })
 
   // Each tab has its own nav history stack:
 
   .state('tab.dash', {
+    cache : false,
     url: '/dash',
     authRequired: true,
     views: {
@@ -74,6 +77,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
 
   .state('tab.chats', {
+      cache : false,
       url: '/chats',
       authRequired: true,
       views: {
@@ -84,6 +88,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     })
     .state('tab.chat-detail', {
+      cache : false,
       url: '/chats/:chatId',
       authRequired: true,
       views: {
@@ -96,6 +101,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
  
   .state('tab.users', {
+    //cache : false,
     url: '/users',
     authRequired: true,
     views: {
@@ -108,6 +114,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   
 
   .state('tab.account', {
+    cache : false,
     url: '/account',
     authRequired: true,
     views: {
