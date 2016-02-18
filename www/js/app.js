@@ -38,7 +38,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
 .config(function($stateProvider, $urlRouterProvider, $authProvider) {
   $authProvider.loginUrl = 'http://localhost:8000/api/v1/authenticate';
-  
+  $authProvider.signupUrl = 'http://localhost:8000/api/v1/user';
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
@@ -53,10 +53,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     })
 
     .state('register', {
-      cache:false,
+      //cache:false,
       url: '/register',
           templateUrl: 'templates/register.html',
-          controller: 'AuthCtrl'
+          controller: 'SignupCtrl'
     })
 
   // setup an abstract state for the tabs directive
