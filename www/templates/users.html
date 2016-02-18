@@ -1,18 +1,10 @@
 <ion-view view-title="Users">
   <ion-content>    
-  
+  <ion-list>
   <ion-item ng-repeat="user in users">
         <h2>{{user.name}}</h2>
         <p>Hat die ID: {{user.id}} !</p>
   </ion-item>
-
-<ul ng-if="!isAuthenticated()">
-      <li><a href="auth">Login</a></li>
-      <li><a href="/signup">Sign up</a></li>
-    </ul>
-    <ul ng-if="isAuthenticated()">
-      <li><a href="#/tab/logout">Logout</a></li>
-    </ul>
 
   </ion-content>
 </ion-view>

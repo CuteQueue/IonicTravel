@@ -98,6 +98,7 @@ angular.module('starter.controllers', ['ui.router'])
     $scope.email='';
     $scope.password='';
     $scope.newUser={};
+      console.log('!!!');
 
     $scope.signup = function() {
 
@@ -128,7 +129,7 @@ angular.module('starter.controllers', ['ui.router'])
 .controller('UsersCtrl', function($scope, $http, $auth) {
   $scope.users = null;
 
-  $http.get('http://localhost:8000/api/v1/authenticate/user').then(function(result) {
+  $http.get('http://localhost:8000/api/v1/allUser').then(function(result) {
       $scope.users = result.data;
   });
 
