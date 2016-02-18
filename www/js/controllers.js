@@ -27,10 +27,7 @@ angular.module('starter.controllers', ['ui.router'])
         $scope.loginError = false;
         $scope.loginErrorText;
 
-        $scope.name = '';
-        $scope.email='';
-        $scope.password='';
-        $scope.newUser={};
+        
   
  
         $scope.login = function() {
@@ -94,11 +91,12 @@ angular.module('starter.controllers', ['ui.router'])
 })
 
  .controller('SignupCtrl', function($scope, $location, $auth, $ionicHistory) {
-    $scope.name = '';
-    $scope.email='';
-    $scope.password='';
-    $scope.newUser={};
-      console.log('!!!');
+
+        $scope.name = '';
+        $scope.last_name = '';
+        $scope.email='';
+        $scope.password='';
+        $scope.newUser={};
 
     $scope.signup = function() {
 
@@ -107,6 +105,7 @@ angular.module('starter.controllers', ['ui.router'])
  
       var credentials = {
           name: $scope.newUser.name,
+          last_name: $scope.newUser.last_name,
           email: $scope.newUser.email,
           password: $scope.newUser.password
       }
