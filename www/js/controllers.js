@@ -26,14 +26,20 @@ angular.module('starter.controllers', ['ui.router'])
         $scope.loginData = {}
         $scope.loginError = false;
         $scope.loginErrorText;
+
+        
+  
  
         $scope.login = function() {
+
+            $ionicHistory.clearCache();
+            $ionicHistory.clearHistory();
  
             var credentials = {
                 email: $scope.loginData.email,
                 password: $scope.loginData.password
             }
- 
+            
             console.log(credentials);
  
             $auth.login(credentials).then(function() {
@@ -61,21 +67,132 @@ angular.module('starter.controllers', ['ui.router'])
                     console.log($scope.loginErrorText);
                 })
             });
-        }
+
+            /*$http.post('http://localhost:8000/api/v1/authenticate',$scope.loginData)
+                .success(function(data){
+                    $scope.email=$scope.loginData.email;
+                    $scope.password=$scope.loginData.password;
+                });*/
+
+        };
+
+        /*$scope.register = function () {
+ 
+            $http.post('http://localhost:8000/api/v1/user',$scope.newUser)
+                .success(function(data){
+                    $scope.name=$scope.newUser.name;
+                    $scope.email=$scope.newUser.email;
+                    $scope.password=$scope.newUser.password;
+                    //$scope.login();
+            })
+ 
+        };*/
  
 })
- 
 
-.controller('UsersCtrl', function($scope){
-    $scope.users = [
-      { user: 'First User', id: 1 },
-      { user: 'Second User', id: 2 },
-      { user: 'Third User', id: 3 }
-    ];
+ .controller('SignupCtrl', function($scope, $location, $auth, $ionicHistory) {
+
+        $scope.name = '';
+        $scope.last_name = '';
+        $scope.email='';
+        $scope.password='';
+        $scope.newUser={};
+
+    $scope.signup = function() {
+
+      $ionicHistory.clearCache();
+      $ionicHistory.clearHistory();
+ 
+      var credentials = {
+          name: $scope.newUser.name,
+          last_name: $scope.newUser.last_name,
+          email: $scope.newUser.email,
+          password: $scope.newUser.password
+      }
+
+      console.log('1');
+      $auth.signup(credentials).then(function(response) {
+          console.log('2');
+          $auth.setToken(response);
+          console.log('3');
+          $location.path('/');
+          console.log('You have successfully created a new account and have been signed-in');
+        })
+        .catch(function(response) {
+          console.log('ERROR during registration');
+        });
+    };
+  })
+
+
+.controller('UsersCtrl', function($scope, $http, $auth) {
+  $scope.users = null;
+
+  $http.get('http://localhost:8000/api/v1/allUser').then(function(result) {
+      $scope.users = result.data;
+  });
+
 })
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
+
+
+
+
+
+.controller('TabCtrl', function($scope, $auth, $ionicHistory, $state){
+  $scope.logout = function() {
+      localStorage.clear();
+      $ionicHistory.clearCache();
+      $ionicHistory.clearHistory();
+      $ionicHistory.nextViewOptions({
+        disableBack: true
+      });
+ 
+      $state.go('auth');
   };
+
+  $scope.isAuthenticated = function() {
+    return $auth.isAuthenticated();
+  };
+})
+
+
+
+.controller('AccountCtrl', function($scope, $http, $auth, $rootScope) {
+  $scope.profils = [];
+  $scope.name = null;
+
+  /*Parameter übergeben (funktioniert)
+    $http({
+    url: 'http://localhost:8000/api/v1/profil/{33}', 
+    method: "GET",
+    params: {id: 33}
+ }).then(function(result){ */
+
+  //Current User (funktioniert nicht)
+  /*var user_id = null;
+  user_id: $rootScope.currentUser.id;
+  console.log(user_id);*/
+
+  var user = localStorage.getItem("user");
+  var parseUser = JSON.parse(user);
+  var user_id = parseUser.id;
+  $scope.user_name = parseUser.name;
+  $scope.user_last_name = parseUser.last_name;
+
+  console.log(user_id);
+
+  $http.get('http://localhost:8000/api/v1/profil/' + user_id).then(function(result) {
+    
+      $scope.profils = result.data.data;
+      console.log($scope.profils);
+      console.log($scope.profils.location);
+     
+
+    // console.log($scope.profils.data[0]); //für mehrere Profile
+    //$scope.profils = $scope.profils.data[0] //für mehrere Profile
+
+    //profil/edit/'. Auth::user()->id
+   
+  });
 });
