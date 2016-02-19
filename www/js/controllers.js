@@ -137,6 +137,8 @@ angular.module('starter.controllers', ['ui.router'])
 
 
 
+
+
 .controller('TabCtrl', function($scope, $auth, $ionicHistory, $state){
   $scope.logout = function() {
       localStorage.clear();
@@ -156,8 +158,41 @@ angular.module('starter.controllers', ['ui.router'])
 
 
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+.controller('AccountCtrl', function($scope, $http, $auth, $rootScope) {
+  $scope.profils = [];
+  $scope.name = null;
+
+  /*Parameter übergeben (funktioniert)
+    $http({
+    url: 'http://localhost:8000/api/v1/profil/{33}', 
+    method: "GET",
+    params: {id: 33}
+ }).then(function(result){ */
+
+  //Current User (funktioniert nicht)
+  /*var user_id = null;
+  user_id: $rootScope.currentUser.id;
+  console.log(user_id);*/
+
+  var user = localStorage.getItem("user");
+  var parseUser = JSON.parse(user);
+  var user_id = parseUser.id;
+  $scope.user_name = parseUser.name;
+  $scope.user_last_name = parseUser.last_name;
+
+  console.log(user_id);
+
+  $http.get('http://localhost:8000/api/v1/profil/' + user_id).then(function(result) {
+    
+      $scope.profils = result.data.data;
+      console.log($scope.profils);
+      console.log($scope.profils.location);
+     
+
+    // console.log($scope.profils.data[0]); //für mehrere Profile
+    //$scope.profils = $scope.profils.data[0] //für mehrere Profile
+
+    //profil/edit/'. Auth::user()->id
+   
+  });
 });
