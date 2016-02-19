@@ -128,6 +128,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         controller: 'AccountCtrl',
       }
     }
+  })
+
+  .state('tab.create', {
+    url: '/account/create',
+    authRequired: true,
+    views: {
+      'tab-account': {
+        templateUrl: 'templates/tab-account-create.html',
+        controller: 'AccountCtrl',
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback

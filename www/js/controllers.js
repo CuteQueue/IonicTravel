@@ -126,10 +126,15 @@ angular.module('starter.controllers', ['ui.router'])
 
 
 .controller('UsersCtrl', function($scope, $http, $auth) {
-  $scope.users = null;
+  $scope.current_ = null;
+  var user = localStorage.getItem("user");
+  var parseUser = JSON.parse(user);
+  var user_id = parseUser.id;
 
-  $http.get('http://localhost:8000/api/v1/allUser').then(function(result) {
-      $scope.users = result.data;
+  $http.get('http://localhost:8000/api/v1/user/' + user_id ).then(function(result) {
+      $scope.current_user = result.data.data;
+        console.log($scope.current_user);
+        console.log($scope.current_user.name);
   });
 
 })
@@ -158,41 +163,88 @@ angular.module('starter.controllers', ['ui.router'])
 
 
 
-.controller('AccountCtrl', function($scope, $http, $auth, $rootScope) {
-  $scope.profils = [];
-  $scope.name = null;
+.controller('AccountCtrl', function($scope, $http, $auth, $rootScope, $state) {
 
-  /*Parameter übergeben (funktioniert)
-    $http({
-    url: 'http://localhost:8000/api/v1/profil/{33}', 
-    method: "GET",
-    params: {id: 33}
- }).then(function(result){ */
 
-  //Current User (funktioniert nicht)
-  /*var user_id = null;
-  user_id: $rootScope.currentUser.id;
-  console.log(user_id);*/
+    $scope.profils = [];
+    $scope.name = null;
 
-  var user = localStorage.getItem("user");
-  var parseUser = JSON.parse(user);
-  var user_id = parseUser.id;
-  $scope.user_name = parseUser.name;
-  $scope.user_last_name = parseUser.last_name;
+    /*Parameter übergeben (funktioniert)
+      $http({
+      url: 'http://localhost:8000/api/v1/profil/{33}', 
+      method: "GET",
+      params: {id: 33}
+   }).then(function(result){ */
 
-  console.log(user_id);
+    //Current User (funktioniert nicht)
+    /*var user_id = null;
+    user_id: $rootScope.currentUser.id;
+    console.log(user_id);*/
 
-  $http.get('http://localhost:8000/api/v1/profil/' + user_id).then(function(result) {
-    
-      $scope.profils = result.data.data;
-      console.log($scope.profils);
-      console.log($scope.profils.location);
+    var user = localStorage.getItem("user");
+    var parseUser = JSON.parse(user);
+    var user_id = parseUser.id;
+    $scope.user_name = parseUser.name;
+    $scope.user_last_name = parseUser.last_name;
+
+    console.log(user_id);
+
+    $http.get('http://localhost:8000/api/v1/profil/' + user_id).then(function(result) {
+      
+        $scope.profil = result.data.data;
+        console.log($scope.profil);
+        console.log($scope.profil.location);
+
+       if($scope.profil == []){
+        console.log("leer");
+        $state.go('tab.create');
+       }else{
+        console.log("nicht leer");
+       }
+
+      // console.log($scope.profils.data[0]); //für mehrere Profile
+      //$scope.profils = $scope.profils.data[0] //für mehrere Profile
      
+    });
 
-    // console.log($scope.profils.data[0]); //für mehrere Profile
-    //$scope.profils = $scope.profils.data[0] //für mehrere Profile
+   $scope.create = function() {
+        $scope.age = '';
+        $scope.sex = '';
+        $scope.location='';
+        $scope.destionaition='';
+        $scope.looking_for = '';
+        $scope.interests = '';
+        $scope.hobbies='';
+        $scope.about = '';
 
-    //profil/edit/'. Auth::user()->id
-   
-  });
+        $ionicHistory.clearCache();
+        $ionicHistory.clearHistory();
+ 
+      var credentials = {
+          age: $scope.newProfil.age,
+          sex: $scope.newProfil.sex,
+          location: $scope.newProfil.location,
+          looking_for: $scope.newProfil.looking_for,
+          interests: $scope.newProfil.interests,
+          hobbies: $scope.newProfil.hobbies,
+          about: $scope.newProfil.about
+      }
+
+      console.log('1');
+      $http({
+        url: 'http://localhost:8000/api/v1/profil/create', 
+        method: "POST",
+        params: credentials
+      }).then(function(result){
+          
+          console.log('2');
+          console.log('You have successfully created a new profile');
+        })
+        .catch(function(response) {
+          console.log('ERROR cannot create a new profile');
+        });
+
+
+   };
+
 });

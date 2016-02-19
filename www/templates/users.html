@@ -1,9 +1,9 @@
 <ion-view view-title="Users">
   <ion-content>    
   <ion-list>
-  <ion-item ng-repeat="user in users">
-        <h2>{{user.name}}</h2>
-        <p>Hat die ID: {{user.id}} !</p>
+  <ion-item>
+        <h2>{{current_user.name}} {{current_user.last_name}}</h2>
+        <p>Hat die ID: {{current_user.id}} !</p>
   </ion-item>
 
   </ion-content>

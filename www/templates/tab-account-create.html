@@ -1,0 +1,43 @@
+<ion-view view-title="Create profile">
+  <ion-content>
+    <form ng-submit="create()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Age</span>
+          <input type="text" ng-model="newProfil.age">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Sex</span>
+          <input type="text" ng-model="newProfil.sex">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Location</span>
+          <input type="text" ng-model="newProfil.location">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Destination</span>
+          <input type="password" ng-model="newProfil.destination">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Looking For</span>
+          <input type="password" ng-model="newProfil.looking_for">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Interests</span>
+          <input type="password" ng-model="newProfil.interests">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Hobbies</span>
+          <input type="password" ng-model="newProfil.hobbies">
+        </label>
+         <label class="item item-input">
+          <span class="input-label">About Me</span>
+          <input type="password" ng-model="newProfil.about">
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive">Register</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>
