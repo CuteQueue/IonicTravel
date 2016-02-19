@@ -193,9 +193,9 @@ angular.module('starter.controllers', ['ui.router'])
       
         $scope.profil = result.data.data;
         console.log($scope.profil);
-        console.log($scope.profil.location);
+        console.log($scope.profil.id);
 
-       if($scope.profil == []){
+       if($scope.profil.id == null){
         console.log("leer");
         $state.go('tab.create');
        }else{
