@@ -59,6 +59,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           controller: 'SignupCtrl'
     })
 
+
   // setup an abstract state for the tabs directive
     .state('tab', {
     url: '/tab',
@@ -77,6 +78,29 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       'tab-dash': {
         templateUrl: 'templates/tab-dash.html',
         controller: 'DashCtrl',
+      }
+    }
+  })
+
+  .state('tab.account', {
+    cache:false,
+    url: '/account',
+    authRequired: true,
+    views: {
+      'tab-account': {
+        templateUrl: 'templates/tab-account.html',
+        controller: 'AccountCtrl',
+      }
+    }
+  })
+
+  .state('tab.create', {
+      //cache:false,
+      url: '/account/create',
+      views: {
+      'tab-account': {
+        templateUrl: 'templates/tab-account-create.html',
+        controller: 'AuthCtrl',
       }
     }
   })
@@ -113,19 +137,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       'tab-users': {
         templateUrl: 'templates/users.html',
         controller: 'UsersCtrl',
-      }
-    }
-  })
-  
-
-  .state('tab.account', {
-    cache:false,
-    url: '/account',
-    authRequired: true,
-    views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl',
       }
     }
   });
