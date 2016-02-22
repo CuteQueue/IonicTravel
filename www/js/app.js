@@ -116,6 +116,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
+
+  
+
+   .state('tab.mate-account', {
+    //cache: false,
+    url: '/users/tab-account/:id',
+    authRequired: true,
+    views: {
+      'tab-users': {
+        templateUrl: 'templates/tab-account.html',
+        controller: 'AccountCtrl',
+      }
+    }
+  })
   
 
   .state('tab.account', {
@@ -153,7 +167,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+ // $urlRouterProvider.otherwise('/tab/dash');
 
 
 });

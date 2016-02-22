@@ -6,9 +6,15 @@
           <span class="input-label">Age</span>
           <input type="number" ng-model="newProfil.age">
         </label>
-        <label class="item item-input">
+         <label class="item item-input item-select">
           <span class="input-label">Sex</span>
-          <input type="text" ng-model="newProfil.sex">
+          <div class="input-label">
+            &nbsp;
+          </div>
+          <select ng-model="newProfil.sex">
+            <option selected>female</option>
+            <option >male</option>
+          </select>
         </label>
         <label class="item item-input">
           <span class="input-label">Location</span>
@@ -30,10 +36,6 @@
           <span class="input-label">Interests</span>
           <input type="text" ng-model="newProfil.interests">
         </label>
-       <!-- <label class="item item-input">
-          <span class="input-label">Hobbies</span>
-          <input type="text" ng-model="newProfil.hobbies">
-        </label>-->
          <label class="item item-input">
           <span class="input-label">About Me</span>
           <input type="text" ng-model="newProfil.about">

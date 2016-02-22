@@ -12,15 +12,13 @@
         </label> -->
          <label class="item item-input item-select">
           <span class="input-label">Sex</span>
-          <div class="input-label" ng-model="newProfil.sex">
+          <div class="input-label">
             &nbsp;
           </div>
-          <select>
+          <select ng-model="newProfil.sex">
             <option selected>female</option>
             <option >male</option>
           </select>
-          <!--<span class="input-label">Sex</span>
-          <input type="text" ng-model="newProfil.sex">-->
         </label>
         <label class="item item-input">
           <span class="input-label">Location</span>
@@ -34,26 +32,31 @@
           <span class="input-label">When?</span>
           <input type="month" ng-model="profil.when">
         </label>-->
+
         <label class="item item-input">
           <span class="input-label">Looking For</span>
           <!--<input type="text" ng-model="newProfil.looking_for"> -->
-          
-       
-        <ion-list>
-          <ion-checkbox ng-model="newProfil.looking_for_MeetUp">Meet Up</ion-checkbox>
-          <ion-checkbox ng-model="newProfil.looking_for_Roadtrip">Roadtrip</ion-checkbox>
-          <ion-checkbox ng-model="newProfil.looking_for_TravelMate">Travel Mate</ion-checkbox>
-         
+          <ion-list>
 
+          <ion-checkbox ng-repeat="item in looking_forList"
+                      ng-model="item.checked" 
+                      ng-checked="item.checked">
+          {{ item.text }}
+        </ion-checkbox>
+
+        <!--<div class="item">
+          <pre ng-bind="looking_forList | json"></pre> 
+        </div>-->
+    
+         <!-- <ion-checkbox ng-model="item.checked" ng-checked="item.checked">Meet Up</ion-checkbox>
+          <ion-checkbox ng-model="item.checked" ng-checked="item.checked">Roadtrip</ion-checkbox>
+          <ion-checkbox ng-model="item.checked" ng-checked="item.checked">Travel Mate</ion-checkbox>-->
+         
           </ion-list>
            </label>
         <label class="item item-input">
           <span class="input-label">Interests</span>
           <input type="text" ng-model="profil.interests">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Hobbies</span>
-          <input type="text" ng-model="profil.hobbies">
         </label>
          <label class="item item-input">
           <span class="input-label">About Me</span>
