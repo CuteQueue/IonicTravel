@@ -116,7 +116,7 @@ angular.module('starter.controllers', ['ui.router'])
           $auth.setToken(response);
           console.log('3');
           $location.path('/');
-          console.log('You have successfully created a new account and have been signed-in');
+          console.log('You have successfully created a new account!');
         })
         .catch(function(response) {
           console.log('ERROR during registration');
@@ -163,8 +163,10 @@ angular.module('starter.controllers', ['ui.router'])
 
 
 
-.controller('AccountCtrl', function($scope, $http, $auth, $rootScope, $state) {
+.controller('AccountCtrl', function($scope, $http, $auth, $rootScope, $state, $ionicHistory) {
 
+     //----SHOW PROFIL----
+     //Wenn noch kein Profil vorhanden, wird $scope.create() aufgerufen
 
     $scope.profils = [];
     $scope.name = null;
@@ -186,7 +188,7 @@ angular.module('starter.controllers', ['ui.router'])
     var user_id = parseUser.id;
     $scope.user_name = parseUser.name;
     $scope.user_last_name = parseUser.last_name;
-
+     console.log("user_id:");
     console.log(user_id);
 
     $http.get('http://localhost:8000/api/v1/profil/' + user_id).then(function(result) {
@@ -195,27 +197,31 @@ angular.module('starter.controllers', ['ui.router'])
         console.log($scope.profil);
         console.log($scope.profil.id);
 
-       if($scope.profil.id == null){
+      /* if($scope.profil.id == null){
         console.log("leer");
         $state.go('tab.create');
        }else{
         console.log("nicht leer");
-       }
+       }*/
 
       // console.log($scope.profils.data[0]); //für mehrere Profile
       //$scope.profils = $scope.profils.data[0] //für mehrere Profile
      
     });
 
-   $scope.create = function() {
+    $scope.newProfil={};
         $scope.age = '';
         $scope.sex = '';
         $scope.location='';
-        $scope.destionaition='';
+        $scope.destination='';
         $scope.looking_for = '';
         $scope.interests = '';
-        $scope.hobbies='';
+      //  $scope.hobbies='';
         $scope.about = '';
+
+    //----CREATE PROFILE----     
+   $scope.create = function() {
+        
 
         $ionicHistory.clearCache();
         $ionicHistory.clearHistory();
@@ -224,27 +230,95 @@ angular.module('starter.controllers', ['ui.router'])
           age: $scope.newProfil.age,
           sex: $scope.newProfil.sex,
           location: $scope.newProfil.location,
+          destination: $scope.newProfil.destination,
           looking_for: $scope.newProfil.looking_for,
           interests: $scope.newProfil.interests,
-          hobbies: $scope.newProfil.hobbies,
+        //  hobbies: $scope.newProfil.hobbies,
           about: $scope.newProfil.about
       }
+      console.log("Eingabe: ");
+      console.log(credentials);
 
-      console.log('1');
-      $http({
-        url: 'http://localhost:8000/api/v1/profil/create', 
-        method: "POST",
-        params: credentials
-      }).then(function(result){
-          
-          console.log('2');
-          console.log('You have successfully created a new profile');
-        })
-        .catch(function(response) {
-          console.log('ERROR cannot create a new profile');
+    var user = localStorage.getItem("user");
+    var parseUser = JSON.parse(user);
+    var parseUser_id = parseUser.id;
+    console.log("User_id: ");
+    console.log(parseUser_id);
+
+ $http.post('http://localhost:8000/api/v1/profil/create', {
+    user_id: parseUser_id,
+    age: $scope.newProfil.age,
+    sex: $scope.newProfil.sex,
+    location: $scope.newProfil.location,
+    destination: $scope.newProfil.destination,
+    looking_for: $scope.newProfil.looking_for,
+    interests: $scope.newProfil.interests,
+   // hobbies: $scope.newProfil.hobbies,
+    about: $scope.newProfil.about
+    
+
+ }).success(function(response) {
+            console.log("Profil Created Successfully");
+            $state.go('tab.account');
+        }).error(function(){
+          console.log("ERROR Profil cannot be created");
         });
 
-
    };
+
+   //----UPDATE PROFILE----
+   $scope.update = function() {
+
+    $http.get('http://localhost:8000/api/v1/profil/' + user_id).then(function(result) {
+      
+        $scope.profil = result.data.data;
+        console.log($scope.profil);
+        console.log($scope.profil.id);
+    });
+
+     
+     $ionicHistory.clearCache();
+     $ionicHistory.clearHistory();
+      
+     //Eingabe vom Fomular (tab-account-create.html)
+     var credentials = {
+          age: $scope.profil.age,
+          sex: $scope.profil.sex,
+          location: $scope.profil.location,
+          destination: $scope.profil.destination,
+          looking_for: $scope.profil.looking_for,
+          interests: $scope.profil.interests,
+         // hobbies: $scope.profil.hobbies,
+          about: $scope.profil.about
+      }
+      console.log("Eingabe: ");
+      console.log(credentials);
+
+    //Aktuelle User ID:
+    var user = localStorage.getItem("user");
+    var parseUser = JSON.parse(user);
+    var parseUser_id = parseUser.id;
+    console.log("User_id: ");
+    console.log(parseUser_id);
+
+    //Weiterleiten der Daten an Laravel 
+    $http.put('http://localhost:8000/api/v1/profil/edit/' + user_id, {
+      age: $scope.profil.age,
+          sex: $scope.profil.sex,
+          location: $scope.profil.location,
+          destination: $scope.profil.destination,
+          looking_for: $scope.profil.looking_for,
+          interests: $scope.profil.interests,
+          //hobbies: $scope.profil.hobbies,
+          about: $scope.profil.about,
+          user_id: parseUser_id
+    }).success(function(response) {
+            console.log("Profil Updated Successfully");
+            $state.go('tab.account');
+        }).error(function(){
+          console.log("ERROR Profil cannot be updated");
+        });
+
+    };
 
 });

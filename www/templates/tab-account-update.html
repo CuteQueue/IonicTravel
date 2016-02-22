@@ -1,0 +1,68 @@
+<ion-view view-title="Edit Profile">
+  <ion-content>
+    <form ng-submit="update()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Age</span>
+          <input type="number" ng-model="profil.age">
+        </label>
+        <!--<label class="item item-input">
+          <span class="input-label">Sex</span>
+          <input type="text" ng-model="profil.sex">
+        </label> -->
+         <label class="item item-input item-select">
+          <span class="input-label">Sex</span>
+          <div class="input-label" ng-model="newProfil.sex">
+            &nbsp;
+          </div>
+          <select>
+            <option selected>female</option>
+            <option >male</option>
+          </select>
+          <!--<span class="input-label">Sex</span>
+          <input type="text" ng-model="newProfil.sex">-->
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Location</span>
+          <input type="text" ng-model="profil.location">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Destination</span>
+          <input type="text" ng-model="profil.destination">
+        </label>
+        <!--<label class="item item-input">
+          <span class="input-label">When?</span>
+          <input type="month" ng-model="profil.when">
+        </label>-->
+        <label class="item item-input">
+          <span class="input-label">Looking For</span>
+          <!--<input type="text" ng-model="newProfil.looking_for"> -->
+          
+       
+        <ion-list>
+          <ion-checkbox ng-model="newProfil.looking_for_MeetUp">Meet Up</ion-checkbox>
+          <ion-checkbox ng-model="newProfil.looking_for_Roadtrip">Roadtrip</ion-checkbox>
+          <ion-checkbox ng-model="newProfil.looking_for_TravelMate">Travel Mate</ion-checkbox>
+         
+
+          </ion-list>
+           </label>
+        <label class="item item-input">
+          <span class="input-label">Interests</span>
+          <input type="text" ng-model="profil.interests">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Hobbies</span>
+          <input type="text" ng-model="profil.hobbies">
+        </label>
+         <label class="item item-input">
+          <span class="input-label">About Me</span>
+          <input type="text" ng-model="profil.about">
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive">Update Profile</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

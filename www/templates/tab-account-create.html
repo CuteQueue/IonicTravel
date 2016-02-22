@@ -4,7 +4,7 @@
       <div class="list">
         <label class="item item-input">
           <span class="input-label">Age</span>
-          <input type="text" ng-model="newProfil.age">
+          <input type="number" ng-model="newProfil.age">
         </label>
         <label class="item item-input">
           <span class="input-label">Sex</span>
@@ -16,26 +16,30 @@
         </label>
         <label class="item item-input">
           <span class="input-label">Destination</span>
-          <input type="password" ng-model="newProfil.destination">
+          <input type="text" ng-model="newProfil.destination">
         </label>
+        <!--<label class="item item-input">
+          <span class="input-label">When?</span>
+          <input type="month" ng-model="newProfil.when">
+        </label>-->
         <label class="item item-input">
           <span class="input-label">Looking For</span>
-          <input type="password" ng-model="newProfil.looking_for">
+          <input type="text" ng-model="newProfil.looking_for">
         </label>
         <label class="item item-input">
           <span class="input-label">Interests</span>
-          <input type="password" ng-model="newProfil.interests">
+          <input type="text" ng-model="newProfil.interests">
         </label>
-        <label class="item item-input">
+       <!-- <label class="item item-input">
           <span class="input-label">Hobbies</span>
-          <input type="password" ng-model="newProfil.hobbies">
-        </label>
+          <input type="text" ng-model="newProfil.hobbies">
+        </label>-->
          <label class="item item-input">
           <span class="input-label">About Me</span>
-          <input type="password" ng-model="newProfil.about">
+          <input type="text" ng-model="newProfil.about">
         </label>
         <label class="item">
-          <button class="button button-block button-positive">Register</button>
+          <button class="button button-block button-positive">Create Profile</button>
         </label>
       </div>
     </form>
