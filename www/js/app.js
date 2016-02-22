@@ -107,12 +107,25 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
  
   .state('tab.users', {
+    //cache: false,
     url: '/users',
     authRequired: true,
     views: {
       'tab-users': {
         templateUrl: 'templates/users.html',
         controller: 'UsersCtrl',
+      }
+    }
+  })
+
+  .state('tab.mate-account', {
+    cache: false,
+    url: '/users/tab-account',
+    authRequired: true,
+    views: {
+      'tab-users': {
+        templateUrl: 'templates/tab-account.html',
+        controller: 'AccountCtrl',
       }
     }
   })

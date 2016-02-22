@@ -27,10 +27,7 @@ angular.module('starter.controllers', ['ui.router'])
         $scope.loginError = false;
         $scope.loginErrorText;
 
-        
-  
- 
-        $scope.login = function() {
+     $scope.login = function() {
 
             $ionicHistory.clearCache();
             $ionicHistory.clearHistory();
@@ -67,27 +64,7 @@ angular.module('starter.controllers', ['ui.router'])
                     console.log($scope.loginErrorText);
                 })
             });
-
-            /*$http.post('http://localhost:8000/api/v1/authenticate',$scope.loginData)
-                .success(function(data){
-                    $scope.email=$scope.loginData.email;
-                    $scope.password=$scope.loginData.password;
-                });*/
-
         };
-
-        /*$scope.register = function () {
- 
-            $http.post('http://localhost:8000/api/v1/user',$scope.newUser)
-                .success(function(data){
-                    $scope.name=$scope.newUser.name;
-                    $scope.email=$scope.newUser.email;
-                    $scope.password=$scope.newUser.password;
-                    //$scope.login();
-            })
- 
-        };*/
- 
 })
 
  .controller('SignupCtrl', function($scope, $location, $auth, $ionicHistory) {
@@ -110,11 +87,8 @@ angular.module('starter.controllers', ['ui.router'])
           password: $scope.newUser.password
       }
 
-      console.log('1');
       $auth.signup(credentials).then(function(response) {
-          console.log('2');
           $auth.setToken(response);
-          console.log('3');
           $location.path('/');
           console.log('You have successfully created a new account and have been signed-in');
         })
@@ -125,24 +99,48 @@ angular.module('starter.controllers', ['ui.router'])
   })
 
 
-.controller('UsersCtrl', function($scope, $http, $auth) {
-  $scope.current_ = null;
-  var user = localStorage.getItem("user");
-  var parseUser = JSON.parse(user);
-  var user_id = parseUser.id;
+.controller('UsersCtrl', function($scope, $http, $auth, $ionicHistory) {
+  $ionicHistory.clearCache();
+  $ionicHistory.clearHistory();
 
-  $http.get('http://localhost:8000/api/v1/user/' + user_id ).then(function(result) {
-      $scope.current_user = result.data.data;
-        console.log($scope.current_user);
-        console.log($scope.current_user.name);
-  });
+  $scope.destination='';
+  $scope.search = {};
+  $scope.Ausgabe = {};
+  $scope.users = '';
+  var zaehler = 0;
 
+  $scope.suche = function (){
+
+    $scope.Ausgabe = {}; 
+    var destination = $scope.search.destination;
+
+    //Array der gesamten User
+    $http.get('http://localhost:8000/api/v1/user').then(function(result) {
+        $scope.users = result.data.data;
+
+        //User-Array durchgehen
+        for(var suchID = 0; suchID < $scope.users.length; ++suchID){
+          var user_id = $scope.users[suchID].user_id;
+          console.log('ID1: ' + user_id);
+          $http.get('http://localhost:8000/api/v1/profil/' + user_id).then(function(result) {
+            $scope.profiles = result.data.data;
+            if($scope.profiles.destination == destination){
+              
+                //User mit passendem Reiseziel in Array speichern
+                $http.get('http://localhost:8000/api/v1/user/' + $scope.profiles.id).then(function(result) {
+                  $scope.users = result.data.data;
+                  $scope.Ausgabe[zaehler] = $scope.users;
+                  zaehler++;
+                });
+              };
+          }); 
+        };
+    });
+  };
 })
 
 
-
-
-
+ 
 
 .controller('TabCtrl', function($scope, $auth, $ionicHistory, $state){
   $scope.logout = function() {
@@ -166,30 +164,29 @@ angular.module('starter.controllers', ['ui.router'])
 .controller('AccountCtrl', function($scope, $http, $auth, $rootScope, $state) {
 
 
-    $scope.profils = [];
+    /*$scope.profils = [];
     $scope.name = null;
 
-    /*Parameter übergeben (funktioniert)
-      $http({
-      url: 'http://localhost:8000/api/v1/profil/{33}', 
-      method: "GET",
-      params: {id: 33}
-   }).then(function(result){ */
-
-    //Current User (funktioniert nicht)
-    /*var user_id = null;
-    user_id: $rootScope.currentUser.id;
-    console.log(user_id);*/
 
     var user = localStorage.getItem("user");
     var parseUser = JSON.parse(user);
     var user_id = parseUser.id;
     $scope.user_name = parseUser.name;
-    $scope.user_last_name = parseUser.last_name;
+    $scope.user_last_name = parseUser.last_name;*/
 
-    console.log(user_id);
+    console.log('butz');
 
-    $http.get('http://localhost:8000/api/v1/profil/' + user_id).then(function(result) {
+    $scope.mateAcc = function(mateID){
+
+      var mate = mateID;
+      console.log('MateID: ' + mate);
+      $http.get('http://localhost:8000/api/v1/profil/' + mateID).then(function(result) {
+        $scope.profil = result.data.data;
+        console.log('MateID: ' + mate);
+      });
+    };
+
+   /* $http.get('http://localhost:8000/api/v1/profil/' + user_id).then(function(result) {
       
         $scope.profil = result.data.data;
         console.log($scope.profil);
@@ -201,11 +198,8 @@ angular.module('starter.controllers', ['ui.router'])
        }else{
         console.log("nicht leer");
        }
+    });*/
 
-      // console.log($scope.profils.data[0]); //für mehrere Profile
-      //$scope.profils = $scope.profils.data[0] //für mehrere Profile
-     
-    });
 
    $scope.create = function() {
         $scope.age = '';
