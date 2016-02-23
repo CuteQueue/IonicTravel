@@ -15,7 +15,7 @@
           <div class="input-label">
             &nbsp;
           </div>
-          <select ng-model="newProfil.sex">
+          <select ng-model="profil.sex">
             <option selected>female</option>
             <option >male</option>
           </select>
@@ -28,10 +28,10 @@
           <span class="input-label">Destination</span>
           <input type="text" ng-model="profil.destination">
         </label>
-        <!--<label class="item item-input">
+        <label class="item item-input">
           <span class="input-label">When?</span>
-          <input type="month" ng-model="profil.when">
-        </label>-->
+          <input type="date" ng-model="profil.startdate" placeholder= "yyyy-mm-dd">
+        </label>
 
         <label class="item item-input">
           <span class="input-label">Looking For</span>
