@@ -106,13 +106,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     })
 
  
-  .state('tab.users', {
-    url: '/users',
+  .state('tab.findMate', {
+    url: '/findMate',
     authRequired: true,
     views: {
-      'tab-users': {
-        templateUrl: 'templates/users.html',
-        controller: 'UsersCtrl',
+      'findMate': {
+        templateUrl: 'templates/findMate.html',
+        controller: 'findMateCtrl',
       }
     }
   })
@@ -121,11 +121,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
    .state('tab.mate-profile', {
     //cache: false,
-    url: '/users/tab-profile/:id',
+    url: '/findMate/mate-profile/:id',
     authRequired: true,
     views: {
-      'tab-users': {
-        templateUrl: 'templates/tab-profile.html',
+      'findMate': {
+        templateUrl: 'templates/tab-mate-profile.html',
         controller: 'ProfileCtrl',
       }
     }

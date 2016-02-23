@@ -59,7 +59,7 @@ angular.module('starter.controllers', ['ui.router'])
                       disableBack: true
                     });
  
-                    $state.go('tab.users');
+                    $state.go('tab.dash');
                 })
                 .error(function(){
                     $scope.loginError = true;
@@ -123,7 +123,7 @@ angular.module('starter.controllers', ['ui.router'])
   })
 
 
-.controller('UsersCtrl', function($scope, $http, $auth) {
+.controller('findMateCtrl', function($scope, $http, $auth) {
   /*$scope.current_ = null;
   var user = localStorage.getItem("user");
   var parseUser = JSON.parse(user);
