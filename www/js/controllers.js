@@ -110,11 +110,9 @@ angular.module('starter.controllers', ['ui.router'])
           password: $scope.newUser.password
       }
 
-      console.log('1');
-      $auth.signup(credentials).then(function(response) {
-          console.log('2');
+     
+          $auth.signup(credentials).then(function(response) {
           $auth.setToken(response);
-          console.log('3');
           $location.path('/');
           console.log('You have successfully created a new account!');
         })
@@ -202,13 +200,17 @@ angular.module('starter.controllers', ['ui.router'])
 
 
 
-.controller('AccountCtrl', function($scope, $http, $auth, $rootScope, $state, $ionicHistory, $stateParams) {
+.controller('ProfileCtrl', function($scope, $http, $auth, $rootScope, $state, $ionicHistory, $stateParams) {
 
      
      //----SHOW PROFIL----
-     //Wenn noch kein Profil vorhanden, wird $scope.create() aufgerufen
+     /*Wird beim Aufruf von Profile aufgerufen.
+     - Wenn keine ID übergeben wird, wird das eigene Profil aufgerufen
+     - Wenn noch kein Profil vorhanden, wird $scope.create() aufgerufen 
+     - Wenn eine ID übergeben wird, wird das entsprechende Profil zur user id aufgerufen */
 
     $scope.profils = [];
+    $scope.profil = [];
     $scope.user = [];
     $scope.name = null;
 
@@ -217,83 +219,64 @@ angular.module('starter.controllers', ['ui.router'])
     console.log("stateParams");
     
 
-
-
     console.log($stateParams.id);
      $scope.user_name = '';
      $scope.user_last_name= '';
 
+
+     //Wenn kein Parameter übergeben, wird das eigene Profil angezeigt
      if ($stateParams.id == null){
-     // Eigenen Account anzeigen
+        $state.go('tab.profile');
 
-      $state.go('tab.account');
+       // console.log("acc");
+        var user = localStorage.getItem("user");
+        var parseUser = JSON.parse(user);
+        var user_id = parseUser.id;
+        $scope.user_name = parseUser.name;
+        $scope.user_last_name = parseUser.last_name;
+        console.log("user_id:");
+        console.log(user_id);
 
-console.log("acc");
-    var user = localStorage.getItem("user");
-    var parseUser = JSON.parse(user);
-    var user_id = parseUser.id;
-    $scope.user_name = parseUser.name;
-    $scope.user_last_name = parseUser.last_name;
-     console.log("user_id:");
-    console.log(user_id);
+        $http.get('http://localhost:8000/api/v1/profil/' + user_id).then(function(result) {
+            if(result.data.data.id == null){
 
-    $http.get('http://localhost:8000/api/v1/profil/' + user_id).then(function(result) {
+                console.log("Kein Profil vorhanden");
+                $state.go('tab.create');
 
-        $scope.profil = result.data.data;
-        console.log($scope.profil);
-        console.log($scope.profil.id);
-    });
+            }else{
 
-  }
-  else{
+                console.log("Profil vorhanden");
+                $scope.profil = result.data.data;
+                console.log($scope.profil);
+                console.log($scope.profil.id);
+            };
+        });
 
-
-    /*Parameter übergeben (funktioniert)
-      $http({
-      url: 'http://localhost:8000/api/v1/profil/{33}', 
-      method: "GET",
-      params: {id: 33}
-   }).then(function(result){ */
-
-    //Current User (funktioniert nicht)
-    /*var user_id = null;
-    user_id: $rootScope.currentUser.id;
-    console.log(user_id);*/
-
-
-    //Account nach ID aufrufen
+      }
+      else{
+      //Wenn ID übergeben wurde, wird das Profil zur übergebenden User ID geladen
    
 
-     $http.get('http://localhost:8000/api/v1/user/' + user_id).then(function(result) {
-      $scope.user = result.data.data;
-      $scope.user_name = $scope.user.name;
-      $scope.user_last_name = $scope.user.last_name;
-      console.log($scope.user);
-        console.log($scope.user.name);
+       $http.get('http://localhost:8000/api/v1/user/' + user_id).then(function(result) {
+          $scope.user = result.data.data;
+          $scope.user_name = $scope.user.name;
+          $scope.user_last_name = $scope.user.last_name;
+          console.log($scope.user);
+          console.log($scope.user.name);
+       
+
+            $http.get('http://localhost:8000/api/v1/profil/' + $scope.user.id).then(function(result) {
+                console.log($scope.user.id);
+                $scope.profil = result.data.data;
+                console.log($scope.profil);
+                console.log($scope.profil.id);  
      
+            });
 
-    $http.get('http://localhost:8000/api/v1/profil/' + $scope.user.id).then(function(result) {
-      console.log($scope.user.id);
-        $scope.profil = result.data.data;
-        console.log($scope.profil);
-        console.log($scope.profil.id);
-
-      /* if($scope.profil.id == null){
-        console.log("leer");
-        $state.go('tab.create');
-       }else{
-        console.log("nicht leer");
-       }*/
-
-      // console.log($scope.profils.data[0]); //für mehrere Profile
-      //$scope.profils = $scope.profils.data[0] //für mehrere Profile
-     
-    });
-
-  });
+        });
 
   };
-
+    console.log("User Name:");
     console.log($scope.user.name);
 
     $scope.newProfil={};
@@ -303,7 +286,6 @@ console.log("acc");
         $scope.destination='';
         $scope.looking_for = '';
         $scope.interests = '';
-      //  $scope.hobbies='';
         $scope.about = '';
         $scope.looking_for_MeetUp = '';
         $scope.looking_for_Roadtrip = '';
@@ -315,9 +297,10 @@ console.log("acc");
     { text: "Roadtrip", checked: false },
     { text: "TravelMate", checked: false }
   ];
+
+
     //----CREATE PROFILE----     
-   $scope.create = function() {
-        
+   $scope.create = function() {  
 
         $ionicHistory.clearCache();
         $ionicHistory.clearHistory();
@@ -332,7 +315,6 @@ console.log("acc");
           looking_for_Roadtrip: $scope.newProfil.looking_for,
           looking_for_TravelMate: $scope.newProfil.looking_for,
           interests: $scope.newProfil.interests,
-        //  hobbies: $scope.newProfil.hobbies,
           about: $scope.newProfil.about
       }
       console.log("Eingabe: ");
@@ -352,13 +334,12 @@ console.log("acc");
     destination: $scope.newProfil.destination,
     looking_for: $scope.newProfil.looking_for,
     interests: $scope.newProfil.interests,
-   // hobbies: $scope.newProfil.hobbies,
     about: $scope.newProfil.about
     
 
  }).success(function(response) {
             console.log("Profil Created Successfully");
-            $state.go('tab.account');
+            $state.go('tab.profile');
         }).error(function(){
           console.log("ERROR Profil cannot be created");
         });
@@ -381,7 +362,7 @@ console.log("acc");
      $ionicHistory.clearCache();
      $ionicHistory.clearHistory();
       
-     //Eingabe vom Fomular (tab-account-create.html)
+     //Eingabe vom Fomular (tab-profile-create.html)
      var credentials = {
           age: $scope.profil.age,
           sex: $scope.profil.sex,
@@ -392,7 +373,6 @@ console.log("acc");
           looking_for_MeetUp: $scope.newProfil.looking_for,
           looking_for_Roadtrip: $scope.newProfil.looking_for,
           looking_for_TravelMate: $scope.newProfil.looking_for,
-         // hobbies: $scope.profil.hobbies,
           about: $scope.profil.about
       }
       console.log("Eingabe: ");
@@ -415,12 +395,11 @@ console.log("acc");
           destination: $scope.profil.destination,
           looking_for: $scope.profil.looking_for,
           interests: $scope.profil.interests,
-          //hobbies: $scope.profil.hobbies,
           about: $scope.profil.about,
           user_id: parseUser_id
     }).success(function(response) {
             console.log("Profil Updated Successfully");
-            $state.go('tab.account');
+            $state.go('tab.profile');
         }).error(function(){
           console.log("ERROR Profil cannot be updated");
         });
