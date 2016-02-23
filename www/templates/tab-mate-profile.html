@@ -1,10 +1,16 @@
-<ion-view view-title="Profile">
+<ion-view view-title="TravelMate Profile">
 <button class="button button-small icon ion ion-edit"></button></h2>  
   <ion-content>
      <ion-item>
      <!-- Name, Nachname -->
       <div class="row">
         <h2> <strong>{{ user_name }} {{user_last_name}} <strong></h2>  
+      </div>
+
+      <div class="row">
+        <button class="button button-calm icon-left ion-email" ng-click="contact()">
+            Contact
+        </button>
       </div>
       
  </ion-item>

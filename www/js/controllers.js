@@ -122,6 +122,12 @@ angular.module('starter.controllers', ['ui.router'])
     };
   })
 
+.controller('ContactCtrl', function($scope, $http, $auth, $state) {
+
+
+
+})
+
 
 .controller('findMateCtrl', function($scope, $http, $auth) {
   /*$scope.current_ = null;
@@ -196,6 +202,16 @@ angular.module('starter.controllers', ['ui.router'])
   $scope.isAuthenticated = function() {
     return $auth.isAuthenticated();
   };
+
+  $scope.TabMate = function(){
+    $state.go('tab.findMate');
+  };
+
+  $scope.TabProfile = function(){
+    $state.go('tab.profile');
+  };
+
+
 })
 
 
@@ -408,6 +424,11 @@ angular.module('starter.controllers', ['ui.router'])
 
     };
 
+    //Weiterleiten zum ContactCtrl 
+    $scope.contact = function(){
+      console.log("working");
+      $state.go('tab.mate-contact');
+    };
     
 
 });

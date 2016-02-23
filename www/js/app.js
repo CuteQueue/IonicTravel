@@ -130,6 +130,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
+
+  .state('tab.mate-contact', {
+    //cache: false,
+    url: '/findMate/contact/:id',
+    authRequired: true,
+    views: {
+      'findMate': {
+        templateUrl: 'templates/contact.html',
+        controller: 'ContactCtrl',
+      }
+    }
+  })
   
 
   .state('tab.profile', {
