@@ -119,55 +119,55 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   
 
-   .state('tab.mate-account', {
+   .state('tab.mate-profile', {
     //cache: false,
-    url: '/users/tab-account/:id',
+    url: '/users/tab-profile/:id',
     authRequired: true,
     views: {
       'tab-users': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl',
+        templateUrl: 'templates/tab-profile.html',
+        controller: 'ProfileCtrl',
       }
     }
   })
   
 
-  .state('tab.account', {
+  .state('tab.profile', {
     cache:false,
-    url: '/account',
+    url: '/profile',
     authRequired: true,
     views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl',
+      'tab-profile': {
+        templateUrl: 'templates/tab-profile.html',
+        controller: 'ProfileCtrl',
       }
     }
   })
 
   .state('tab.create', {
-    url: '/account/create',
+    url: '/profile/create',
     authRequired: true,
     views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account-create.html',
-        controller: 'AccountCtrl',
+      'tab-profile': {
+        templateUrl: 'templates/tab-profile-create.html',
+        controller: 'ProfileCtrl',
       }
     }
   })
 
   .state('tab.update', {
-    url: '/account/update',
+    url: '/profile/update',
     authRequired: true,
     views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account-update.html',
-        controller: 'AccountCtrl',
+      'tab-profile': {
+        templateUrl: 'templates/tab-profile-update.html',
+        controller: 'ProfileCtrl',
       }
     }
   });
 
   // if none of the above states are matched, use this as the fallback
- // $urlRouterProvider.otherwise('/tab/dash');
+ $urlRouterProvider.otherwise('/tab/dash');
 
 
 });
