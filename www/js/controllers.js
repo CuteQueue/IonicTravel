@@ -38,8 +38,8 @@ angular.module('starter.controllers', ['ui.router'])
             var credentials = {
                 email: $scope.loginData.email,
                 password: $scope.loginData.password
-            }
-            
+            } 
+            console.log("Login credentials:");
             console.log(credentials);
  
             $auth.login(credentials).then(function() {
@@ -216,7 +216,7 @@ angular.module('starter.controllers', ['ui.router'])
 
     
     var user_id = $stateParams.id;
-    console.log("stateParams");
+    console.log("stateParams:");
     
 
     console.log($stateParams.id);
@@ -354,7 +354,9 @@ angular.module('starter.controllers', ['ui.router'])
     $http.get('http://localhost:8000/api/v1/profil/' + user_id).then(function(result) {
       
         $scope.profil = result.data.data;
+        console.log("Update. Profil:")
         console.log($scope.profil);
+        console.log("Update. Profil.id:")
         console.log($scope.profil.id);
     });
 
