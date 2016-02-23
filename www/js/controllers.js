@@ -312,6 +312,7 @@ angular.module('starter.controllers', ['ui.router'])
         $scope.sex = '';
         $scope.location='';
         $scope.destination='';
+        $scope.startdate='';
         $scope.looking_for = '';
         $scope.interests = '';
         $scope.about = '';
@@ -360,6 +361,7 @@ angular.module('starter.controllers', ['ui.router'])
     sex: $scope.newProfil.sex,
     location: $scope.newProfil.location,
     destination: $scope.newProfil.destination,
+    startdate: $scope.newProfil.destination,
     looking_for: $scope.newProfil.looking_for,
     interests: $scope.newProfil.interests,
     about: $scope.newProfil.about
@@ -398,11 +400,10 @@ angular.module('starter.controllers', ['ui.router'])
           sex: $scope.profil.sex,
           location: $scope.profil.location,
           destination: $scope.profil.destination,
+          startdate: $scope.profil.startdate,
           looking_for: $scope.profil.looking_for,
           interests: $scope.profil.interests,
-          looking_for_MeetUp: $scope.newProfil.looking_for,
-          looking_for_Roadtrip: $scope.newProfil.looking_for,
-          looking_for_TravelMate: $scope.newProfil.looking_for,
+          looking_for: $scope.profil.looking_for,
           about: $scope.profil.about
       }
       console.log("Eingabe: ");
@@ -423,6 +424,7 @@ angular.module('starter.controllers', ['ui.router'])
           sex: $scope.profil.sex,
           location: $scope.profil.location,
           destination: $scope.profil.destination,
+          startdate: $scope.profil.startdate,
           looking_for: $scope.profil.looking_for,
           interests: $scope.profil.interests,
           about: $scope.profil.about,

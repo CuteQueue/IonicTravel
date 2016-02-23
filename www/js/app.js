@@ -6,7 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'satellizer'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'satellizer', 'ngCordova'])
 
 
 .run(function($ionicPlatform, $rootScope, $auth, $state) {

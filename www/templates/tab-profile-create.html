@@ -7,7 +7,7 @@
           <input type="number" ng-model="newProfil.age">
         </label>
          <label class="item item-input item-select">
-          <span class="input-label">Sex</span>
+          <span class="input-label">Gender</span>
           <div class="input-label">
             &nbsp;
           </div>
@@ -26,11 +26,13 @@
         </label>
         <label class="item item-input">
           <span class="input-label">When?</span>
-          <input type="month" ng-model="newProfil.startdate">
+          <input type="date" ng-model="newProfil.startdate">
         </label>
-        <label class="item item-input">
+
+        {{newProfil.startdate}}
+        <label class="item item-input item-stacked-label">
           <span class="input-label">Looking For</span>
-          <input type="text" ng-model="newProfil.looking_for">
+          <input type="text" ng-model="newProfil.looking_for" placeholder="e.g. Meet Up, Roadtrip, Travel Mate">
         </label>
         <label class="item item-input">
           <span class="input-label">Interests</span>

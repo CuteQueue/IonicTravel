@@ -1,48 +1,49 @@
 <ion-view view-title="Edit Profile">
   <ion-content>
     <form ng-submit="update()">
-      <div class="list">
-        <label class="item item-input">
-          <span class="input-label">Age</span>
-          <input type="number" ng-model="profil.age">
+      <div class="list profil-information">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Age:</span>
+          <input type="number" ng-model="profil.age" placeholder ="Your age">
         </label>
-        <!--<label class="item item-input">
-          <span class="input-label">Sex</span>
-          <input type="text" ng-model="profil.sex">
-        </label> -->
-         <label class="item item-input item-select">
-          <span class="input-label">Sex</span>
+         <label class="item item-input item-select item-stacked-label">
+          <span class="input-label">Gender:</span>
           <div class="input-label">
             &nbsp;
           </div>
+        </br>
           <select ng-model="profil.sex">
             <option selected>female</option>
             <option >male</option>
           </select>
         </label>
-        <label class="item item-input">
-          <span class="input-label">Location</span>
-          <input type="text" ng-model="profil.location">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Location:</span>
+          <input type="text" ng-model="profil.location" placeholder = "Your current location">
         </label>
-        <label class="item item-input">
-          <span class="input-label">Destination</span>
-          <input type="text" ng-model="profil.destination">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Destination:</span>
+          <input type="text" ng-model="profil.destination" placeholder = "Where do you wanna go?">
         </label>
-        <label class="item item-input">
+        <label class="item item-input item-stacked-label">
           <span class="input-label">When?</span>
           <input type="date" ng-model="profil.startdate" placeholder= "yyyy-mm-dd">
         </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Looking For:</span>
+          <input type="text" ng-model="profil.looking_for" placeholder="e.g. Meet Up, Roadtrip, Travel Mate">
+        </label>
 
-        <label class="item item-input">
+        <!--<label class="item item-input">
           <span class="input-label">Looking For</span>
-          <!--<input type="text" ng-model="newProfil.looking_for"> -->
+          <!--<input type="text" ng-model="newProfil.looking_for"> 
           <ion-list>
 
           <ion-checkbox ng-repeat="item in looking_forList"
                       ng-model="item.checked" 
                       ng-checked="item.checked">
           {{ item.text }}
-        </ion-checkbox>
+        </ion-checkbox> -->
 
         <!--<div class="item">
           <pre ng-bind="looking_forList | json"></pre> 
@@ -54,13 +55,14 @@
          
           </ion-list>
            </label>
-        <label class="item item-input">
-          <span class="input-label">Interests</span>
-          <input type="text" ng-model="profil.interests">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Interests:</span>
+          <input type="text" ng-model="profil.interests" placeholder ="e.g. Nature, Partying, Culture, Trekking, Beach...">
         </label>
-         <label class="item item-input">
-          <span class="input-label">About Me</span>
-          <input type="text" ng-model="profil.about">
+         <label class="item item-input item-stacked-label">
+          <span class="input-label">About Me:</span>
+          <textarea ng-model="profil.about" placeholder="..." rows="8" cols="10">
+  </textarea>
         </label>
         <label class="item">
           <button class="button button-block button-positive">Update Profile</button>
