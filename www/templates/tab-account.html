@@ -1,0 +1,55 @@
+<ion-view view-title="Profile TravelMate">
+<button class="button button-small icon ion ion-edit"></button></h2>  
+  <ion-content>
+     <ion-item>
+     <!-- Name, Nachname -->
+      <div class="row">
+     <h2> <strong>{{ user_name }} {{user_last_name}} <strong></h2>  
+      <div class="row">
+        <div class="col text-right">
+          <button class="button button-small icon ion ion-edit" ui-sref="tab.update"></button>
+        </div>
+      </div>
+    </div>
+      
+ </ion-item>
+ <ion-list>
+    <ion-item >
+       <h2>Alter: {{profil.age}}</h2>
+    </ion-item>
+    <ion-item >
+       <h2>Sex: {{profil.sex}}</h2>
+    </ion-item>
+    <ion-item >
+      <h2>Location: {{profil.location}}</h2>
+    </ion-item>
+    <ion-item >
+      <h2>Destination: {{profil.destination}}</h2>
+    </ion-item>
+    <!-- <ion-item >
+       <h2>When?: {{profil.when}}</h2>
+    </ion-item>-->
+    <ion-item >
+       <h2>Looking for: {{profil.looking_for}}</h2>
+    </ion-item>
+     <ion-item >
+       <h2>Interests: {{profil.interests}}</h2>
+    </ion-item>
+    <ion-item >
+      <h2>Hobbies: {{profil.hobbies}}</h2>
+    </ion-item>
+    <ion-item >
+      <h2>About Me: {{profil.about}}</h2>
+    </ion-item>
+  </ion-list>
+  </ion-content>
+</ion-view>
+
+
+<!-- Header Title
+	<div class="bar bar-header bar-light">
+  		<h1 class="title">{{ user_name }} {{user_last_name}} </h1>
+	</div>
+-->
+
+        
