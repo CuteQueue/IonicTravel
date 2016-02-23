@@ -2,17 +2,20 @@
 <button class="button button-small icon ion ion-edit"></button></h2>  
   <ion-content>
      <ion-item>
-     <!-- Name, Nachname -->
+
       <div class="row">
-     <h2> <strong>{{ user_name }} {{user_last_name}} <strong></h2>  
-      <div class="row">
-        <div class="col text-right">
-          <button class="button button-small icon ion ion-edit" ui-sref="tab.update"></button>
-        </div>
-      </div>
+          <div id = "profile_img">
+            <img ng-src="http://compsci.ca/v3/uploads/user_avatars/66978344050ad764a63277.jpg" alt = "profile_picture" height="100px">
+          </div>
+          <div class="row">
+            <h2> <strong>{{ user_name }} {{user_last_name}} <strong></h2>  
+          </div>
+          <div class="col text-right">
+              <button class="button button-small icon ion ion-edit" ui-sref="tab.update"></button>
+          </div>
     </div>
-      
  </ion-item>
+ 
  <ion-list>
     <ion-item >
        <h2>Alter: {{profil.age}}</h2>

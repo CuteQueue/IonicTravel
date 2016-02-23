@@ -1,25 +1,52 @@
-<ion-view view-title="find Mate">
+<ion-view view-title="Find Travel Mate">
   <ion-content>   
 
   <ion-item>
-    	<form ng-submit="suche()">
-    		<label class="item item-input item-stacked-label">
-         		<span class="input-label">Find Travelmates with same destination!</span>
-         		<input type="search" ng-model="search.destination" placeholder = "enter destination...">
-        	</label>
-			<label class="item">
-          		<button class="button button-block button-positive" type="submit">Search</button>
-        	</label>
-		</form>
+      <form ng-submit="suche()">
+        <label class="item item-input item-stacked-label">
+            <span class="input-label">Find Travelmates with same destination!</span>
+            <input type="search" ng-model="search.destination" placeholder = "enter destination...">
+          </label>
+      <label class="item">
+              <button class="button button-block button-positive" type="submit">Search</button>
+          </label>
+    </form>
   </ion-item>
 
-  <ion-list>
+ 
+
+  <!--<div class="list card" ng-repeat="user in Ausgabe">
+  <div class="item item-avatar">
+    <img src="http://compsci.ca/v3/uploads/user_avatars/66978344050ad764a63277.jpg">
+    <h2>{{user.name}} {{user.last_name}}</h2>
+    <p>Startdate: {{profiles.startdate}}</p>
+  </div>
+  
+  <div class="item item-body">
+    <p>
+      Looking For: {{profiles.lookinng_for}}
+    </p>
+  </div>
+</div>-->
+
+
+
+
+
+ <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="user in Ausgabe" type="item-text-wrap" href="#/tab/findMate/mate-profile/{{user.id}}" >
         <img ng-src="http://compsci.ca/v3/uploads/user_avatars/66978344050ad764a63277.jpg">
         <h2>{{user.name}} {{user.last_name}}</h2>
+        <p>Startdate: {{profileAusgabe[user.id].startdate}}</p> 
+        <p>Looking for: {{profileAusgabe[user.id].looking_for}}</p>
+
+       <!-- <ion-item ng-repeat="profile in profileAusgabe">
+        Startdate: {{profile.startdate}}
+      </ion-item> -->
+
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
-    </ion-list>
+    </ion-list> 
 
   </ion-content>
 </ion-view>

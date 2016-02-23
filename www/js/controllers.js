@@ -142,11 +142,15 @@ angular.module('starter.controllers', ['ui.router'])
   });*/
 
 
-  $scope.destination='';
+   $scope.destination='';
   $scope.search = {};
   $scope.Ausgabe = {};
   $scope.users = '';
+  $scope.profiles=[];
+  $scope.profileAusgabe = {};
+  var startdate='';
   var zaehler = 0;
+  var test = '';
 
   $scope.suche = function (){
 
@@ -164,7 +168,15 @@ angular.module('starter.controllers', ['ui.router'])
           console.log('ID1: ' + user_id);
           $http.get('http://localhost:8000/api/v1/profil/' + user_id).then(function(result) {
             $scope.profiles = result.data.data;
+            
             if($scope.profiles.destination == destination){
+              console.log($scope.profiles.startdate);
+              test = $scope.profiles.user_id;
+              $scope.profileAusgabe[test] = $scope.profiles;
+              console.log("Zaheler:");
+              console.log(test);
+              test++;
+             console.log($scope.profileAusgabe);
               console.log($scope.profiles.id);
                 //User mit passendem Reiseziel in Array speichern
                 $http.get('http://localhost:8000/api/v1/user/' + $scope.profiles.user_id).then(function(result) {
