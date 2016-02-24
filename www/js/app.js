@@ -169,7 +169,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   .state('tab.update', {
     url: '/profile/update',
-     //cache:false,
+    //cache:false,
     authRequired: true,
     views: {
       'tab-profile': {

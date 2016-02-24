@@ -220,7 +220,15 @@ angular.module('starter.controllers', ['ui.router'])
   };
 
   $scope.TabProfile = function(){
+    $ionicHistory.clearCache();
+    $ionicHistory.clearHistory();
+    $ionicHistory.nextViewOptions({
+      disableAnimate: true,
+      disableBack: true,
+      historyRoot: true
+    });
     $state.go('tab.profile');
+
   };
 
 
@@ -229,8 +237,13 @@ angular.module('starter.controllers', ['ui.router'])
 
 
 .controller('ProfileCtrl', function($scope, $http, $auth, $rootScope, $state, $ionicHistory, $stateParams) {
-
-     
+    $ionicHistory.clearCache();
+    $ionicHistory.clearHistory();
+    $ionicHistory.nextViewOptions({
+      disableAnimate: true,
+      disableBack: true,
+    });
+     $scope.loadProfile = function() {  
      //----SHOW PROFIL----
      /*Wird beim Aufruf von Profile aufgerufen.
      - Wenn keine ID übergeben wird, wird das eigene Profil aufgerufen
@@ -327,12 +340,18 @@ angular.module('starter.controllers', ['ui.router'])
     { text: "TravelMate", checked: false }
   ];
 
-
+};
+$scope.loadProfile();
     //----CREATE PROFILE----     
    $scope.create = function() {  
 
         $ionicHistory.clearCache();
         $ionicHistory.clearHistory();
+        $ionicHistory.nextViewOptions({
+              disableAnimate: true,
+              disableBack: true,
+              historyRoot: true
+            });
  
       var credentials = {
           age: $scope.newProfil.age,
@@ -378,8 +397,14 @@ angular.module('starter.controllers', ['ui.router'])
 
    //----UPDATE PROFILE----
    $scope.update = function() {
-   
-    
+    $ionicHistory.nextViewOptions({
+      disableAnimate: true,
+      disableBack: true,
+      historyRoot: true
+    });
+    var user = localStorage.getItem("user");
+    var parseUser = JSON.parse(user);
+    var user_id = parseUser.id;
 
     $http.get('http://localhost:8000/api/v1/profil/' + user_id).then(function(result) {
       
@@ -389,7 +414,6 @@ angular.module('starter.controllers', ['ui.router'])
         console.log("Update. Profil.id:")
         console.log($scope.profil.id);
     });
-
      
      $ionicHistory.clearCache();
      $ionicHistory.clearHistory();
@@ -431,7 +455,11 @@ angular.module('starter.controllers', ['ui.router'])
           user_id: parseUser_id
     }).success(function(response) {
             console.log("Profil Updated Successfully");
-            $state.go('tab.profile');
+            //$ionicHistory.clearCache();
+            //$ionicHistory.clearHistory();
+            //$state.go('tab.profile');
+            
+            $scope.goProfil();
         }).error(function(){
           console.log("ERROR Profil cannot be updated");
         });
@@ -442,6 +470,32 @@ angular.module('starter.controllers', ['ui.router'])
     $scope.contact = function(){
       console.log("working");
       $state.go('tab.mate-contact');
+    };
+
+    $scope.goEdit = function(){
+      console.log("workingEdit BUTZ");
+      $ionicHistory.clearCache();
+      $ionicHistory.clearHistory();
+      $ionicHistory.nextViewOptions({
+        disableAnimate: true,
+        disableBack: true,
+        historyRoot: true
+      });
+      $scope.loadProfile();
+      $state.go('tab.update');
+    };
+
+    $scope.goProfil = function(){
+      console.log("workingProfil");
+      $ionicHistory.clearCache();
+      $ionicHistory.clearHistory();
+      $ionicHistory.nextViewOptions({
+        disableAnimate: true,
+        disableBack: true,
+        historyRoot: true
+      });
+      $scope.loadProfile();
+      $state.go('tab.profil');
     };
     
 
