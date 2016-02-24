@@ -26,13 +26,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   //Überprüfung, ob User schon eingeloggt ist
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
-        console.log("TEST");
       if (toState.authRequired && !$auth.isAuthenticated()){ 
         // User isn’t authenticated
         console.log("Nicht eingeloggt");
         $state.transitionTo("auth");
         event.preventDefault(); 
       }
+      console.log("User ist eingeloggt");
     });
 })
 
@@ -142,6 +142,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
+
+  .state('tab.picture', {
+     // cache:false,
+      url: '/picture',
+      authRequired: true,
+      views: {
+        'tab-picture': {
+          templateUrl: 'templates/picture.html',
+          controller: 'ImagePickerCtrl',
+        }
+      }
+    })
   
 
   .state('tab.profile', {
@@ -174,13 +186,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     views: {
       'tab-profile': {
         templateUrl: 'templates/tab-profile-update.html',
-        controller: 'ProfileCtrl',
+        controller: 'photoCtrl',
       }
     }
   });
 
+  
+
+
+
   // if none of the above states are matched, use this as the fallback
- $urlRouterProvider.otherwise('/tab/dash');
+ //$urlRouterProvider.otherwise('/tab/dash');
 
 
 });
