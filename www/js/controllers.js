@@ -122,10 +122,38 @@ angular.module('starter.controllers', ['ui.router'])
     };
   })
 
-.controller('ContactCtrl', function($scope, $http, $auth, $state) {
+.controller('ContactCtrl', function($scope, $http, $auth, $state, $cordovaEmailComposer) {
 
+  $scope.sendEmail = function(){
+      $cordovaEmailComposer.isAvailable().then(function() {
+       // is available
+       console.log('available');
+     }, function () {
+       // not available
+       console.log('NOT available');
+     });
 
+      var email = {
+        to: 'manuela.reker@gmx.de',
+        cc: 'erika@mustermann.de',
+        bcc: ['john@mustermann.com', 'jane@mustermann.com'],
+        attachments: [
+          'file://img/logo.png',
+          'res://icon.png',
+          'base64:icon.png//iVBORw0KGgoAAAANSUhEUg...',
+          'file://README.pdf'
+        ],
+        subject: 'Cordova Icons',
+        body: 'How are you? Nice greetings from Leipzig',
+        isHtml: true
+      };
 
+     $cordovaEmailComposer.open(email).then(null, function () {
+       // user cancelled email
+       console.log('User cancelled Email');
+     });
+   
+  };
 })
 
 
@@ -499,96 +527,4 @@ $scope.loadProfile();
     };
     
 
-})
-
-.controller('photoCtrl', function ($scope, $cordovaCapture, $cordovaImagePicker, $ionicActionSheet, Photo) {
-
-    //$ionicPlatform.ready(function() {
-
-        $scope.formData = {};
-
-        // action sheet
-        $scope.showAction = function () {
-
-            var hideSheet = $ionicActionSheet.show({
-                buttons: [
-                    {text: ' Capture'},
-                    {text: ' Pick'}
-                ],
-                title: 'Add Photo',
-                cancelText: 'Cancel',
-                cancel: function () {
-                    //
-                },
-                buttonClicked: function (index) {
-                    if (index == 0) {
-                        var options = {
-                            limit: 1
-                        };
-
-                        // capture
-                        $cordovaCapture.captureImage(options).then(function (imageData) {
-                            var imgData = imageData[0].fullPath;
-                            // convert image to base64 string
-                            Photo.convertImageToBase64(imgData, function(base64Img){
-                                $scope.formData.photo = base64Img;
-                            });
-
-                        }, function (error) {
-                            $scope.photoError = error;
-                        });
-                    } else if (index == 1) {
-                        var options = {
-                            maximumImagesCount: 1,
-                        };
-
-                        // pick
-                        $cordovaImagePicker.getPictures(options).then(function (results) {
-                            var imgData = results[0];
-                            // convert image to base64 string
-                            Photo.convertImageToBase64(imgData, function(base64Img){
-                                $scope.formData.photo = base64Img;
-                            });
-                        });
-                    }
-                }
-            })
-        };
-
-   // });
-
-    $scope.sendData = function() {
-        $http.post('http://localhost:8000/api/v1/profil/saveImage')
-            .success(function(successData){
-                console.log("Image was saved successfully")
-            })
-            .error(function (errorData) {
-                console.log(errorData);
-                console.log("Error cannot save image");
-            })
-    };
-
-})
-
-// factory
-.factory('Photo', function () {
-    return {
-
-        convertImageToBase64: function (url, callback, output) {
-            var img = new Image();
-            img.crossOrigin = 'Anonymous';
-            img.onload = function(){
-                var canvas = document.createElement('CANVAS'),
-                    c = canvas.getContext('2d'), urlData;
-                canvas.height = this.height;
-                canvas.width = this.width;
-                c.drawImage(this, 0, 0);
-                urlData = canvas.toDataURL(output);
-                callback(urlData);
-                canvas = null;
-            };
-            img.src = url;
-        }
-
-    };
 });
