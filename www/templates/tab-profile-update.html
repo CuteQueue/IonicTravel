@@ -1,5 +1,23 @@
 <ion-view view-title="Edit Profile">
-  <ion-content>
+  
+
+  <!--<ion-content ng-controller="photoCtrl">
+
+  <ion-item>
+</ion-item>
+
+ <ion-item>
+        <div class="row">
+            <div class="col text-center">
+                <button class="button button-positive" ng-click="showAction()">
+                    Add Photo
+                </button>
+            </div>
+        </div>
+      </ion-item> -->
+    
+
+ <ion-content>
     <form ng-submit="update()">
       <div class="list profil-information">
         <label class="item item-input item-stacked-label">
@@ -26,7 +44,7 @@
           <input type="text" ng-model="profil.destination" placeholder = "Where do you wanna go?">
         </label>
         <label class="item item-input item-stacked-label">
-          <span class="input-label">When?</span>
+          <span class="input-label">When do you want to start your trip?</span>
           <input type="date" ng-model="profil.startdate" placeholder= "yyyy-mm-dd">
         </label>
         <label class="item item-input item-stacked-label">
