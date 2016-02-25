@@ -1,5 +1,16 @@
-<ion-view view-title="Login">
+<ion-view hide-nav-bar="true" class="login" view-title="Login">
   <ion-content>
+  <div class="list card">
+
+    <div class="item">
+      <h2>Welcome to TravelMate</h2>
+      <p>Please Login</p>
+    </div>
+
+    <div class="item item-image">
+      <img src="https://static.pexels.com/photos/7752/pexels-photo-large.jpg">
+    </div>
+
     <form ng-submit="login()">
       <div class="list">
         <label class="item item-input">
@@ -19,6 +30,8 @@
     <div class="row">
       <div class="col text-center"><a ui-sref="register">Register</a></div>
     </div>
+
+</div>
 
   </ion-content>
 </ion-view>
