@@ -122,10 +122,38 @@ angular.module('starter.controllers', ['ui.router'])
     };
   })
 
-.controller('ContactCtrl', function($scope, $http, $auth, $state) {
+.controller('ContactCtrl', function($scope, $http, $auth, $state, $cordovaEmailComposer) {
 
+  $scope.sendEmail = function(){
+      $cordovaEmailComposer.isAvailable().then(function() {
+       // is available
+       console.log('available');
+     }, function () {
+       // not available
+       console.log('NOT available');
+     });
 
+      var email = {
+        to: 'manuela.reker@gmx.de',
+        cc: 'erika@mustermann.de',
+        bcc: ['john@mustermann.com', 'jane@mustermann.com'],
+        attachments: [
+          'file://img/logo.png',
+          'res://icon.png',
+          'base64:icon.png//iVBORw0KGgoAAAANSUhEUg...',
+          'file://README.pdf'
+        ],
+        subject: 'Cordova Icons',
+        body: 'How are you? Nice greetings from Leipzig',
+        isHtml: true
+      };
 
+     $cordovaEmailComposer.open(email).then(null, function () {
+       // user cancelled email
+       console.log('User cancelled Email');
+     });
+   
+  };
 })
 
 
