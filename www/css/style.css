@@ -13,20 +13,16 @@
 	float: right;
 }
 
-.profil-heading{
-	font-size: 18px;
-	color: grey;
-	font-weight: bold;
-}
+
 
 
 .login {
-	background: url('/img/login_hg.jpeg') no-repeat center;
+	background: url('../img/login_hg.jpeg') no-repeat center;
 	background-size: cover;
 }
 
 .dash {
-	background: url('/img/street2_img.jpg') no-repeat center;
+	background: url('../img/street2_img.jpg') no-repeat center;
 	background-size: cover;
 }
 
@@ -34,6 +30,12 @@
 	font-weight: bold;
 	font-size: 12px;
 	color: #669999;
+}
+
+.profil-information h3{
+	font-size: 18px;
+	color: grey;
+	font-weight: bold;
 }
 
 .profil-information p{

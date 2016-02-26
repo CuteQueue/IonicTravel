@@ -406,7 +406,7 @@ $scope.loadProfile();
     console.log("User_id: ");
     console.log(parseUser_id);
 
- $http.post('http://localhost:8000/api/v1/profil/create', {
+ $http.post('http://192.168.123.109:8092/api/v1/profil/create', {
     user_id: parseUser_id,
     age: $scope.newProfil.age,
     sex: $scope.newProfil.sex,
@@ -438,7 +438,7 @@ $scope.loadProfile();
     var parseUser = JSON.parse(user);
     var user_id = parseUser.id;
 
-    $http.get('http://localhost:8000/api/v1/profil/' + user_id).then(function(result) {
+    $http.get('http://192.168.123.109:8092/api/v1/profil/' + user_id).then(function(result) {
       
         $scope.profil = result.data.data;
         console.log("Update. Profil:")
@@ -475,7 +475,7 @@ $scope.loadProfile();
     console.log(parseUser_id);
 
     //Weiterleiten der Daten an Laravel 
-    $http.put('http://localhost:8000/api/v1/profil/edit/' + user_id, {
+    $http.put('http://192.168.123.109:8092/api/v1/profil/edit/' + user_id, {
       age: $scope.profil.age,
           sex: $scope.profil.sex,
           location: $scope.profil.location,
@@ -499,10 +499,42 @@ $scope.loadProfile();
     };
 
     //Weiterleiten zum ContactCtrl 
-    $scope.contact = function(){
+   /* $scope.contact = function(){
       console.log("working");
       $state.go('tab.mate-contact');
-    };
+    };*/
+
+    $scope.contact = function(){
+      $cordovaEmailComposer.isAvailable().then(function() {
+       // is available
+       console.log('available');
+     }, function () {
+       // not available
+       console.log('NOT available');
+     });
+
+      var email = {
+        to: 'manuela.reker@gmx.de',
+        cc: 'erika@mustermann.de',
+        bcc: ['john@mustermann.com', 'jane@mustermann.com'],
+        attachments: [
+          'file://img/logo.png',
+          'res://icon.png',
+          'base64:icon.png//iVBORw0KGgoAAAANSUhEUg...',
+          'file://README.pdf'
+        ],
+        subject: 'Cordova Icons',
+        body: 'How are you? Nice greetings from Leipzig',
+        isHtml: true
+      };
+
+     $cordovaEmailComposer.open(email).then(null, function () {
+       // user cancelled email
+       console.log('User cancelled Email');
+     });
+   
+  };
+
 
     $scope.goEdit = function(){
       console.log("workingEdit BUTZ");
