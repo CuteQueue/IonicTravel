@@ -14,17 +14,17 @@
 }
 
 
-
-
-.login {
-	background: url('../img/login_hg.jpeg') no-repeat center;
+#login{
+	background: url('../img/login_hg.jpeg') no-repeat center center fixed;
 	background-size: cover;
 }
 
-.dash {
-	background: url('../img/street2_img.jpg') no-repeat center;
+.pane {
+	background: url('../img/street2_img.jpg') no-repeat center center fixed;
 	background-size: cover;
 }
+
+
 
 .profil-information h2{
 	font-weight: bold;
