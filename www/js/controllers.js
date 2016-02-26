@@ -1,6 +1,9 @@
 angular.module('starter.controllers', ['ui.router'])
 
-.controller('DashCtrl', function($scope) {})
+.controller('DashCtrl', function($scope, AppImages) {
+  $scope.images = AppImages.all();
+
+})
 
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
@@ -21,8 +24,9 @@ angular.module('starter.controllers', ['ui.router'])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
-.controller('AuthCtrl', function($scope, $location, $stateParams, $ionicHistory, $http, $state, $auth, $rootScope) {
- 
+.controller('AuthCtrl', function($scope, $location, $stateParams, $ionicHistory, $http, $state, $auth, $rootScope, AppImages) {
+        
+        $scope.images = AppImages.all();
         $scope.loginData = {}
         $scope.loginError = false;
         $scope.loginErrorText;
@@ -44,7 +48,7 @@ angular.module('starter.controllers', ['ui.router'])
  
             $auth.login(credentials).then(function() {
                 // Return an $http request for the authenticated user
-                $http.get('http://localhost:8000/api/v1/authenticate/user').success(function(response){
+                $http.get('http://192.168.123.109:8092/api/v1/authenticate/user').success(function(response){
                     // Stringify the retured data
                     var user = JSON.stringify(response.user);
  
@@ -186,7 +190,7 @@ angular.module('starter.controllers', ['ui.router'])
     var destination = $scope.search.destination;
 
     //Array der gesamten User
-    $http.get('http://localhost:8000/api/v1/user').then(function(result) {
+    $http.get('http://192.168.123.109:8092/api/v1/user').then(function(result) {
         $scope.users = result.data.data;
 
         //User-Array durchgehen
@@ -194,7 +198,7 @@ angular.module('starter.controllers', ['ui.router'])
          // console.log($scope.users[suchID].id);
           var user_id = $scope.users[suchID].id;
           console.log('ID1: ' + user_id);
-          $http.get('http://localhost:8000/api/v1/profil/' + user_id).then(function(result) {
+          $http.get('http://192.168.123.109:8092/api/v1/profil/' + user_id).then(function(result) {
             $scope.profiles = result.data.data;
             
             if($scope.profiles.destination == destination){
@@ -207,7 +211,7 @@ angular.module('starter.controllers', ['ui.router'])
              console.log($scope.profileAusgabe);
               console.log($scope.profiles.id);
                 //User mit passendem Reiseziel in Array speichern
-                $http.get('http://localhost:8000/api/v1/user/' + $scope.profiles.user_id).then(function(result) {
+                $http.get('http://192.168.123.109:8092/api/v1/user/' + $scope.profiles.user_id).then(function(result) {
                   $scope.users = result.data.data;
                   $scope.Ausgabe[zaehler] = $scope.users;
                   zaehler++;
@@ -306,7 +310,7 @@ angular.module('starter.controllers', ['ui.router'])
         console.log("user_id:");
         console.log(user_id);
 
-        $http.get('http://localhost:8000/api/v1/profil/' + user_id).then(function(result) {
+        $http.get('http://192.168.123.109:8092/api/v1/profil/' + user_id).then(function(result) {
             if(result.data.data.id == null){
 
                 console.log("Kein Profil vorhanden");
@@ -326,7 +330,7 @@ angular.module('starter.controllers', ['ui.router'])
       //Wenn ID übergeben wurde, wird das Profil zur übergebenden User ID geladen
    
 
-       $http.get('http://localhost:8000/api/v1/user/' + user_id).then(function(result) {
+       $http.get('http://192.168.123.109:8092/api/v1/user/' + user_id).then(function(result) {
           $scope.user = result.data.data;
           $scope.user_name = $scope.user.name;
           $scope.user_last_name = $scope.user.last_name;
@@ -334,7 +338,7 @@ angular.module('starter.controllers', ['ui.router'])
           console.log($scope.user.name);
        
 
-            $http.get('http://localhost:8000/api/v1/profil/' + $scope.user.id).then(function(result) {
+            $http.get('http://192.168.123.109:8092/api/v1/profil/' + $scope.user.id).then(function(result) {
                 console.log($scope.user.id);
                 $scope.profil = result.data.data;
                 console.log($scope.profil);

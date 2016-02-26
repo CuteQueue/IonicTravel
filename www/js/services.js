@@ -47,4 +47,35 @@ angular.module('starter.services', [])
       return null;
     }
   };
+})
+
+.factory('AppImages', function() {
+  // Might use a resource here that returns a JSON array
+
+  // Some fake testing data
+  var images = [{
+    id: 0,
+    pic: 'img/login_img.jpg'
+  },{
+    id: 1,
+    pic: 'img/login_hg.jpg'
+  },{
+    id: 2,
+    pic: 'img/train_img.jpg'
+  }];
+
+  return {
+    all: function() {
+      return images;
+    },
+    get: function(imageId) {
+      for (var i = 0; i < images.length; i++) {
+        if (images[i].id === parseInt(imageId)) {
+          return images[i];
+        }
+      }
+      return null;
+    }
+  };
 });
+

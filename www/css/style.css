@@ -19,8 +19,14 @@
 	font-weight: bold;
 }
 
+
 .login {
-	background: url('https://static.pexels.com/photos/40465/pexels-photo-40465-large.jpeg') no-repeat center;
+	background: url('/img/login_hg.jpeg') no-repeat center;
+	background-size: cover;
+}
+
+.dash {
+	background: url('/img/street2_img.jpg') no-repeat center;
 	background-size: cover;
 }
 
