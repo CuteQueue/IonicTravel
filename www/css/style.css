@@ -19,6 +19,11 @@
 	background-size: cover;
 }
 
+#noBG{
+	background: url('') no-repeat center center fixed;
+	background-color: #FFFFFF;
+}
+
 .pane {
 	background: url('../img/street2_img.jpg') no-repeat center center fixed;
 	background-size: cover;
