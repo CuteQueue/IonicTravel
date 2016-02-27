@@ -17,7 +17,8 @@
   "cordovaPlugins": [
     {
       "locator": "https://github.com/apache/cordova-plugin-whitelist.git",
-      "id": "cordova-plugin-whitelist"
+      "id": "cordova-plugin-whitelist",
+	    "id": "de.appplant.cordova.plugin.email-composer"
     }
   ],
   "cordovaPlatforms": [

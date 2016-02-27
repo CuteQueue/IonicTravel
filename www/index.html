@@ -25,6 +25,18 @@
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
     <script src="lib/satellizer/satellizer.min.js"></script>
+    <script>
+        
+         console.log("Entering onBodyLoad");
+         //alert("Body Load");
+         document.addEventListener("deviceready", onDeviceReady, false);
+       
+
+       function onDeviceReady() {
+         console.log("Cordova is ready");
+         //navigator.notification.alert("Cordova is ready!");
+       };
+    </script>
     </head>
     <body ng-app="starter">
     <!--

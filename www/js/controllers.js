@@ -268,7 +268,7 @@ angular.module('starter.controllers', ['ui.router'])
 
 
 
-.controller('ProfileCtrl', function($scope, $http, $auth, $rootScope, $state, $ionicHistory, $stateParams) {
+.controller('ProfileCtrl', function($scope, $http, $auth, $rootScope, $state, $ionicHistory, $stateParams, $ionicPlatform, $cordovaEmailComposer) {
     $ionicHistory.clearCache();
     $ionicHistory.clearHistory();
     $ionicHistory.nextViewOptions({
@@ -505,35 +505,26 @@ $scope.loadProfile();
     };*/
 
     $scope.contact = function(){
-      $cordovaEmailComposer.isAvailable().then(function() {
-       // is available
-       console.log('available');
-     }, function () {
-       // not available
-       console.log('NOT available');
-     });
+      var email = "manuela.reker@gmx.de";
+      document.addEventListener("deviceready", onDeviceReady, false);
+       
 
-      var email = {
-        to: 'manuela.reker@gmx.de',
-        cc: 'erika@mustermann.de',
-        bcc: ['john@mustermann.com', 'jane@mustermann.com'],
-        attachments: [
-          'file://img/logo.png',
-          'res://icon.png',
-          'base64:icon.png//iVBORw0KGgoAAAANSUhEUg...',
-          'file://README.pdf'
-        ],
-        subject: 'Cordova Icons',
-        body: 'How are you? Nice greetings from Leipzig',
-        isHtml: true
-      };
+       function onDeviceReady() {
+        cordova.plugins.email.isAvailable(
+          function (isAvailable) {
 
-     $cordovaEmailComposer.open(email).then(null, function () {
-       // user cancelled email
-       console.log('User cancelled Email');
-     });
-   
-  };
+         console.log("Cordova is ready");
+         //navigator.notification.alert("Cordova is ready!");
+         cordova.plugins.email.open({
+            to:      'max@mustermann.de',
+            cc:      'erika@mustermann.de',
+            bcc:     ['john@doe.com', 'jane@doe.com'],
+            subject: 'Greetings',
+            body:    'How are you? Nice greetings from Leipzig'
+        });
+       });
+       };
+   };
 
 
     $scope.goEdit = function(){

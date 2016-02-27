@@ -9,7 +9,10 @@
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'satellizer', 'ngCordova'])
 
 
-.run(function($ionicPlatform, $rootScope, $auth, $state) {
+.run(function($ionicPlatform, $rootScope, $auth, $state, $cordovaEmailComposer) {
+  document.addEventListener('deviceready', function () {
+    // cordova.plugins.email is now available
+}, false);
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -35,6 +38,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     });
 })
+
+
 
 .config(function($stateProvider, $urlRouterProvider, $authProvider) {
   $authProvider.loginUrl = 'http://192.168.123.109:8092/api/v1/authenticate';
