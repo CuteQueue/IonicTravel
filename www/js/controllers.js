@@ -112,6 +112,11 @@ angular.module('starter.controllers', ['ui.router'])
       var zaehler = 0;
       var zeahler2 = 0;
 
+      var user = localStorage.getItem("user");
+          var parseUser = JSON.parse(user);
+          var parseuser_id = parseUser.id;
+
+
       $scope.suche = function (){
 
           $scope.Ausgabe = {}; 
@@ -129,13 +134,11 @@ angular.module('starter.controllers', ['ui.router'])
                     $http.get('http://192.168.178.46:8092/api/v1/profil/' + user_id).then(function(result) {
                           $scope.profiles = result.data.data;
                           
-                          if($scope.profiles.destination == destination){
+                          if($scope.profiles.destination == destination && parseuser_id != $scope.profiles.user_id){
                               //console.log($scope.profiles.startdate);
                               zeahler2 = $scope.profiles.user_id;
                               $scope.profileAusgabe[zeahler2] = $scope.profiles;
                               zeahler2++;
-                              //console.log($scope.profileAusgabe);
-                              //console.log($scope.profiles.id);
                               
                               //User mit passendem Reiseziel in Array speichern
                                 $http.get('http://192.168.178.46:8092/api/v1/user/' + $scope.profiles.user_id).then(function(result) {
