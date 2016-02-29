@@ -64,6 +64,7 @@ angular.module('starter.controllers', ['ui.router'])
                     
                     $ionicHistory.nextViewOptions({
                       disableBack: true
+
                     });
  
                     $state.go('tab.dash');
@@ -94,7 +95,7 @@ angular.module('starter.controllers', ['ui.router'])
 
       $ionicHistory.clearCache();
       $ionicHistory.clearHistory();
- 
+      var alertPopup ='';
       var credentials = {
           name: $scope.newUser.name,
           last_name: $scope.newUser.last_name,
@@ -106,7 +107,15 @@ angular.module('starter.controllers', ['ui.router'])
           $auth.signup(credentials).then(function(response) {
           $auth.setToken(response);
           $location.path('/');
-          console.log('You have successfully created a new account!');
+          alertPopup = $ionicPopup.alert({
+
+                title: 'You have successfully created a new account!',
+
+               });
+
+                alertPopup.then(function(res) {
+                });
+          //console.log('You have successfully created a new account!');
         })
         .catch(function(response) {
           console.log('ERROR during registration');
@@ -308,7 +317,6 @@ angular.module('starter.controllers', ['ui.router'])
                  $scope.contact = {
                       // We will use it to save a contact
       
-            "displayName": "TravelMate3",
             "name": {
                 "givenName"  : $scope.user_name,
                 "familyName" : $scope.user_last_name,
@@ -492,15 +500,10 @@ $scope.loadProfile();
 
                 title: 'Contact saved',
 
-                template: '',
-
                });
 
                 alertPopup.then(function(res) {
-
-      console.log('Thanks');
-
-   });
+                });
             }, function(error) {
                 console.log(error);
         });
