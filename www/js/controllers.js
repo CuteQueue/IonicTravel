@@ -346,10 +346,8 @@ angular.module('starter.controllers', ['ui.router'])
             sex: $scope.newProfil.sex,
             location: $scope.newProfil.location,
             destination: $scope.newProfil.destination,
+            startdate: $scope.newProfil.startdate,
             looking_for: $scope.newProfil.looking_for,
-            looking_for_MeetUp: $scope.newProfil.looking_for,
-            looking_for_Roadtrip: $scope.newProfil.looking_for,
-            looking_for_TravelMate: $scope.newProfil.looking_for,
             interests: $scope.newProfil.interests,
             about: $scope.newProfil.about
         }
@@ -369,7 +367,7 @@ angular.module('starter.controllers', ['ui.router'])
             sex: $scope.newProfil.sex,
             location: $scope.newProfil.location,
             destination: $scope.newProfil.destination,
-            startdate: $scope.newProfil.destination,
+            startdate: $scope.newProfil.startdate,
             looking_for: $scope.newProfil.looking_for,
             interests: $scope.newProfil.interests,
             about: $scope.newProfil.about

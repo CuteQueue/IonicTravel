@@ -2,6 +2,11 @@
   <ion-content>
     <form name="createForm" ng-submit="create()">
      <div class="list profil-information">
+        <div class="row">
+                  <div class="col profil-information"> 
+                    <a class="button button-icon ion-android-warning" ng-click="alertPhone()"> Read before adding phone number.</a>
+                  </div>
+        </div>
         <label class="item item-input item-stacked-label">
           <span class="input-label">Mobile number:</span>
           <input type="tel" ng-model="newProfil.mobilenumber" name = "mobilenumber" placeholder ="e.g. +49 12345678" ng-minlength="8">
@@ -41,7 +46,7 @@
         </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label">When do you want to start your trip?</span>
-          <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" ng-model="newProfil.startdate" placeholder= "yyyy-mm-dd" min="2016-03-01" max="2020-12-31">
+           <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" ng-model="newProfil.startdate" placeholder= "yyyy-mm-dd" min="2016-03-01" max="2020-12-31">
         </label>
         <label class="item item-input item-stacked-label">
           <span class="input-label">Looking For:</span>
