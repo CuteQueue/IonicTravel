@@ -1,39 +1,42 @@
-<ion-view hide-nav-bar="true" id="login" class="pane" view-title="Login">
+<ion-view hide-nav-bar="true" id = "login" class ="pane" view-title="Login">
 <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
   <ion-content>
-  <div class="list card">
-
-    <div class="item">
-      <h2>Welcome to TravelMate</h2>
-      <p>Please Login</p>
-    </div>
-    <!--Free Stock Images von https://static.pexels.com-->
-    <div class="item item-image">
-        <img ng-src="{{images[0].pic}}">
-    </div>
-    
-
-    <form ng-submit="login()">
-      <div class="list">
-        <label class="item item-input">
-          <span class="input-label">Email</span>
-          <input type="email" ng-model="loginData.email">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Password</span>
-          <input type="password" ng-model="loginData.password">
-        </label>
-        <label class="item">
-          <button class="button button-block button-positive" type="submit">Log in</button>
-        </label>
+      <div class="list card">
+      <div class="item">
+        <h2>Please Log in</h2>
       </div>
-    </form>
+      <!--Free Stock Images von https://static.pexels.com-->
+      <div class="item item-image">
+          <img ng-src="{{images[0].pic}}">
+      </div>
+      
 
-    <div class="row">
-      <div class="col text-center"><a ui-sref="register">Register</a></div>
-    </div>
+      <form name="loginForm" novalidate ng-submit="login()">
+          <div class="list">
+            <label class="item item-input">
+              <span class="input-label">Email</span>
+              <input type="email" ng-model="loginData.email" name = "email" ng-minlength="5" required>
+            </label>
+            <label class="item item-input">
+              <span class="input-label">Password</span>
+              <input type="password" ng-model="loginData.password" name = "password" required>
+            </label>
+            <label class="item">
+              <button class="button button-block button-balanced" type="submit" >Log in</button>
+            </label>
+             <div class="errors" ng-show="loginForm.$submitted || loginForm.password.$touched">
+                <p ng-show="loginForm.email.$error.required">*Email is required</p>
+                <p ng-show="loginForm.password.$error.required">*Password is required</p>
+                <p ng-show="loginForm.looking_for.$error.maxlength">*Looking for is  too long</p>
+                <p ng-show="loginForm.email.$invalid && !myForm.email.$pristine">* Email must be an valid email address.</p>
+            </div>       
+          </div>
+      </form>
 
-</div>
+      <div class="row">
+        <div class="col text-center"><a ui-sref="register">Register</a></div>
+      </div>
+  </div>
 
   </ion-content>
 </ion-view>

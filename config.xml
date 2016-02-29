@@ -8,7 +8,6 @@
       Your Name Here
     </author>
   <content src="index.html"/>
-  <gap:plugin name="de.appplant.cordova.plugin.email-composer" version="0.8.2" />
   <plugin name="de.appplant.cordova.plugin.email-composer" version="0.8.2" />
   <plugin name="cordova-plugin-whitelist" spec="1" />
   <access origin="*"/>

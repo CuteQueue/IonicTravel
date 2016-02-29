@@ -15,7 +15,7 @@
 
 
 #login{
-	background: url('../img/login_hg.jpeg') no-repeat center center fixed;
+	background: url('../img/login_hg.jpg') no-repeat center center fixed;
 	background-size: cover;
 }
 
@@ -24,8 +24,12 @@
 	background-color: #FFFFFF;
 }
 
+#greyspan{
+	color: grey;
+}
+
 .pane {
-	background: url('../img/street2_img.jpg') no-repeat center center fixed;
+	background: url('../img/pane_img.jpg') no-repeat center center fixed;
 	background-size: cover;
 }
 
@@ -54,4 +58,18 @@
 	color: #669999;
 	
 }
+
+.profil-information a{
+	font-size: 14px;
+	color: grey;
+	font-weight: normal;
+	padding: 50 px;
+}
+
+.errors p{
+	color: red;
+
+}
+
+
 
