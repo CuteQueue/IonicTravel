@@ -106,7 +106,6 @@ angular.module('starter.controllers', ['ui.router'])
      
           $auth.signup(credentials).then(function(response) {
           $auth.setToken(response);
-          $location.path('/');
           alertPopup = $ionicPopup.alert({
 
                 title: 'You have successfully created a new account!',
@@ -115,6 +114,8 @@ angular.module('starter.controllers', ['ui.router'])
 
                 alertPopup.then(function(res) {
                 });
+          $location.path('/');
+          
           //console.log('You have successfully created a new account!');
         })
         .catch(function(response) {
