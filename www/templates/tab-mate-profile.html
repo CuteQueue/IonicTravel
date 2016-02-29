@@ -1,22 +1,19 @@
 <ion-view view-title="Travel Mate Profile">
 
-  <ion-content>
+  <!--<ion-content ng-controller="TestCtrl">-->
+   <ion-content>
      <ion-item>
      
       <div class = "row">
             <h2 class = "profil-heading"> {{ user_name }} {{user_last_name}}</h2>  
       </div>
       <div id ="contact">
-        <button class="button button-calm icon-left ion-email" ng-click="contact()">Contact</button>
-         <a href="mailto:test@example.com?subject=testing out mailto" class="button button-positive">Contact</a>
+        <button class="button button-calm icon-left ion-plus-round" ng-click="createContact()">Add Contact</button>
       </div>
      
           <div id = "profile_img">
-            <img ng-src="http://compsci.ca/v3/uploads/user_avatars/66978344050ad764a63277.jpg" alt = "profile_picture" height="100px">
-        
-          
-          
-    </div>
+            <img ng-src="http://compsci.ca/v3/uploads/user_avatars/66978344050ad764a63277.jpg" alt = "profile_picture" height="100px">  
+        </div>
 
  </ion-item>
 
@@ -57,8 +54,11 @@
     {{profil.about}}
   </div>
     </ion-item>
-  </ion-list>
-</div>
+  
+  <ion-item>
+</ion-item>
+  </ion-list> 
+  </div>
   </ion-content>
 </ion-view>
 

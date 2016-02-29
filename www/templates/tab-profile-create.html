@@ -1,50 +1,61 @@
 <ion-view view-title="Create profile" id="noBG">
   <ion-content>
-    <form ng-submit="create()">
-      <div class="list">
-        <label class="item item-input">
-          <span class="input-label">Age</span>
-          <input type="number" ng-model="newProfil.age">
+    <form name="createForm" ng-submit="create()">
+     <div class="list profil-information">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Mobile number:</span>
+          <input type="tel" ng-model="newProfil.mobilenumber" name = "mobilenumber" placeholder ="+49 12345678" ng-minlength="8">
         </label>
-         <label class="item item-input item-select">
-          <span class="input-label">Gender</span>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Age:</span>
+          <input type="number" ng-model="newProfil.age" placeholder ="Your age">
+        </label>
+         <label class="item item-input item-select item-stacked-label">
+          <span class="input-label">Gender:</span>
           <div class="input-label">
             &nbsp;
           </div>
+        </br>
           <select ng-model="newProfil.sex">
             <option selected>female</option>
             <option >male</option>
           </select>
         </label>
-        <label class="item item-input">
-          <span class="input-label">Location</span>
-          <input type="text" ng-model="newProfil.location">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Destination</span>
-          <input type="text" ng-model="newProfil.destination">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">When?</span>
-          <input type="date" ng-model="newProfil.startdate">
-        </label>
-
-        {{newProfil.startdate}}
         <label class="item item-input item-stacked-label">
-          <span class="input-label">Looking For</span>
-          <input type="text" ng-model="newProfil.looking_for" placeholder="e.g. Meet Up, Roadtrip, Travel Mate">
+          <span class="input-label">Location:</span>
+          <input type="text" ng-model="newProfil.location" name="location" placeholder = "Your current location" ng-minlength="3">
         </label>
-        <label class="item item-input">
-          <span class="input-label">Interests</span>
-          <input type="text" ng-model="newProfil.interests">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Destination:</span>
+          <input type="text" ng-model="newProfil.destination" placeholder = "Where do you wanna go?">
         </label>
-         <label class="item item-input">
-          <span class="input-label">About Me</span>
-          <input type="text" ng-model="newProfil.about">
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">When do you want to start your trip?</span>
+          <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" ng-model="newProfil.startdate" placeholder= "yyyy-mm-dd" min="2016-03-01" max="2020-12-31">
         </label>
-        <label class="item">
-          <button class="button button-block button-positive">Create Profile</button>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Looking For:</span>
+          <input type="text" ng-model="newProfil.looking_for" name="looking_for" placeholder="e.g. Meet Up, Roadtrip, Travel Mate" ng-maxlength="50">
         </label>
+      </ion-list>
+           </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Interests:</span>
+          <input type="text" ng-model="newProfil.interests" name = "interests" placeholder ="e.g. Nature, Partying, Culture, Trekking, Beach..."  ng-maxlength="50">
+        </label>
+         <label class="item item-input item-stacked-label">
+          <span class="input-label">About Me:</span>
+          <textarea ng-model="newProfil.about" placeholder="Tell others about yourself! What kind of traveller are you? What do you enjoy doing? Mention anything that might help match you with potential travel mates." rows="8" cols="10"></textarea>
+        </label>
+         <div class="errors">
+            <p ng-show="createForm.mobilenumber.$error.minlength">*Mobile number is too short</p>
+            <p ng-show="createForm.location.$error.minlength">*Location is too short</p>
+            <p ng-show="createForm.looking_for.$error.maxlength">*Looking for is  too long</p>
+            <p ng-show="createForm.interests.$error.maxlength">*Interests is too long</p>
+        </div>       
+
+      </div>
+          <button class="button button-block button-positive" ng-disabled="createForm.$invalid">Create Profile</button>
       </div>
     </form>
   </ion-content>

@@ -32,7 +32,10 @@ angular.module('starter.controllers', ['ui.router'])
         $scope.loginErrorText;
 
         
-  
+       if ( $auth.isAuthenticated()){
+        console.log("User ist schon eingelogt");
+        $state.go('tab.dash');
+       }
  
         $scope.login = function() {
 
@@ -48,7 +51,7 @@ angular.module('starter.controllers', ['ui.router'])
  
             $auth.login(credentials).then(function() {
                 // Return an $http request for the authenticated user
-                $http.get('http://192.168.123.109:8092/api/v1/authenticate/user').success(function(response){
+                $http.get('http://192.168.178.46:8092/api/v1/authenticate/user').success(function(response){
                     // Stringify the retured data
                     var user = JSON.stringify(response.user);
  
@@ -72,26 +75,9 @@ angular.module('starter.controllers', ['ui.router'])
                 })
             });
 
-            /*$http.post('http://localhost:8000/api/v1/authenticate',$scope.loginData)
-                .success(function(data){
-                    $scope.email=$scope.loginData.email;
-                    $scope.password=$scope.loginData.password;
-                });*/
-
         };
 
-        /*$scope.register = function () {
- 
-            $http.post('http://localhost:8000/api/v1/user',$scope.newUser)
-                .success(function(data){
-                    $scope.name=$scope.newUser.name;
-                    $scope.email=$scope.newUser.email;
-                    $scope.password=$scope.newUser.password;
-                    //$scope.login();
-            })
- 
-        };*/
- 
+      
 })
 
  .controller('SignupCtrl', function($scope, $location, $auth, $ionicHistory) {
@@ -99,6 +85,7 @@ angular.module('starter.controllers', ['ui.router'])
         $scope.name = '';
         $scope.last_name = '';
         $scope.email='';
+        $scope.mobilenumber ='';
         $scope.password='';
         $scope.newUser={};
 
@@ -126,55 +113,12 @@ angular.module('starter.controllers', ['ui.router'])
     };
   })
 
-.controller('ContactCtrl', function($scope, $http, $auth, $state, $cordovaEmailComposer) {
 
-  $scope.sendEmail = function(){
-      $cordovaEmailComposer.isAvailable().then(function() {
-       // is available
-       console.log('available');
-     }, function () {
-       // not available
-       console.log('NOT available');
-     });
-
-      var email = {
-        to: 'manuela.reker@gmx.de',
-        cc: 'erika@mustermann.de',
-        bcc: ['john@mustermann.com', 'jane@mustermann.com'],
-        attachments: [
-          'file://img/logo.png',
-          'res://icon.png',
-          'base64:icon.png//iVBORw0KGgoAAAANSUhEUg...',
-          'file://README.pdf'
-        ],
-        subject: 'Cordova Icons',
-        body: 'How are you? Nice greetings from Leipzig',
-        isHtml: true
-      };
-
-     $cordovaEmailComposer.open(email).then(null, function () {
-       // user cancelled email
-       console.log('User cancelled Email');
-     });
-   
-  };
-})
 
 
 .controller('findMateCtrl', function($scope, $http, $auth) {
-  /*$scope.current_ = null;
-  var user = localStorage.getItem("user");
-  var parseUser = JSON.parse(user);
-  var user_id = parseUser.id;
-
-  $http.get('http://localhost:8000/api/v1/user/' + user_id ).then(function(result) {
-      $scope.current_user = result.data.data;
-        console.log($scope.current_user);
-        console.log($scope.current_user.name);
-  });*/
-
-
-   $scope.destination='';
+ 
+  $scope.destination='';
   $scope.search = {};
   $scope.Ausgabe = {};
   $scope.users = '';
@@ -182,7 +126,7 @@ angular.module('starter.controllers', ['ui.router'])
   $scope.profileAusgabe = {};
   var startdate='';
   var zaehler = 0;
-  var test = '';
+  var zeahler2 = 0;
 
   $scope.suche = function (){
 
@@ -190,28 +134,26 @@ angular.module('starter.controllers', ['ui.router'])
     var destination = $scope.search.destination;
 
     //Array der gesamten User
-    $http.get('http://192.168.123.109:8092/api/v1/user').then(function(result) {
+    $http.get('http://192.168.178.46:8092/api/v1/user').then(function(result) {
         $scope.users = result.data.data;
 
         //User-Array durchgehen
         for(var suchID = 0; suchID < $scope.users.length; ++suchID){
          // console.log($scope.users[suchID].id);
           var user_id = $scope.users[suchID].id;
-          console.log('ID1: ' + user_id);
-          $http.get('http://192.168.123.109:8092/api/v1/profil/' + user_id).then(function(result) {
+          console.log('ID: ' + user_id);
+          $http.get('http://192.168.178.46:8092/api/v1/profil/' + user_id).then(function(result) {
             $scope.profiles = result.data.data;
             
             if($scope.profiles.destination == destination){
               console.log($scope.profiles.startdate);
-              test = $scope.profiles.user_id;
-              $scope.profileAusgabe[test] = $scope.profiles;
-              console.log("Zaheler:");
-              console.log(test);
-              test++;
+              zeahler2 = $scope.profiles.user_id;
+              $scope.profileAusgabe[zeahler2] = $scope.profiles;
+              zeahler2++;
              console.log($scope.profileAusgabe);
               console.log($scope.profiles.id);
                 //User mit passendem Reiseziel in Array speichern
-                $http.get('http://192.168.123.109:8092/api/v1/user/' + $scope.profiles.user_id).then(function(result) {
+                $http.get('http://192.168.178.46:8092/api/v1/user/' + $scope.profiles.user_id).then(function(result) {
                   $scope.users = result.data.data;
                   $scope.Ausgabe[zaehler] = $scope.users;
                   zaehler++;
@@ -268,7 +210,7 @@ angular.module('starter.controllers', ['ui.router'])
 
 
 
-.controller('ProfileCtrl', function($scope, $http, $auth, $rootScope, $state, $ionicHistory, $stateParams, $ionicPlatform, $cordovaEmailComposer) {
+.controller('ProfileCtrl', function($scope, $http, $auth, $rootScope, $state, $ionicHistory, $stateParams, $cordovaContacts, $ionicPlatform, $ionicPopup) {
     $ionicHistory.clearCache();
     $ionicHistory.clearHistory();
     $ionicHistory.nextViewOptions({
@@ -286,6 +228,7 @@ angular.module('starter.controllers', ['ui.router'])
     $scope.profil = [];
     $scope.user = [];
     $scope.name = null;
+    $scope.contact =[];
 
     
     var user_id = $stateParams.id;
@@ -295,22 +238,26 @@ angular.module('starter.controllers', ['ui.router'])
     console.log($stateParams.id);
      $scope.user_name = '';
      $scope.user_last_name= '';
+     $scope.user_email = '';
+     $scope.user_mobilenumber = '';
+  
 
 
      //Wenn kein Parameter übergeben, wird das eigene Profil angezeigt
      if ($stateParams.id == null){
         $state.go('tab.profile');
 
-       // console.log("acc");
+      
         var user = localStorage.getItem("user");
         var parseUser = JSON.parse(user);
         var user_id = parseUser.id;
         $scope.user_name = parseUser.name;
         $scope.user_last_name = parseUser.last_name;
+        $scope.user_email = parseUser.email;
         console.log("user_id:");
         console.log(user_id);
 
-        $http.get('http://192.168.123.109:8092/api/v1/profil/' + user_id).then(function(result) {
+        $http.get('http://192.168.178.46:8092/api/v1/profil/' + user_id).then(function(result) {
             if(result.data.data.id == null){
 
                 console.log("Kein Profil vorhanden");
@@ -330,20 +277,54 @@ angular.module('starter.controllers', ['ui.router'])
       //Wenn ID übergeben wurde, wird das Profil zur übergebenden User ID geladen
    
 
-       $http.get('http://192.168.123.109:8092/api/v1/user/' + user_id).then(function(result) {
+       $http.get('http://192.168.178.46:8092/api/v1/user/' + user_id).then(function(result) {
           $scope.user = result.data.data;
+
           $scope.user_name = $scope.user.name;
           $scope.user_last_name = $scope.user.last_name;
+
+           $scope.user_email= $scope.user.mail;
+           console.log($scope.user_email);
           console.log($scope.user);
           console.log($scope.user.name);
        
 
-            $http.get('http://192.168.123.109:8092/api/v1/profil/' + $scope.user.id).then(function(result) {
+            $http.get('http://192.168.178.46:8092/api/v1/profil/' + $scope.user.id).then(function(result) {
                 console.log($scope.user.id);
                 $scope.profil = result.data.data;
                 console.log($scope.profil);
                 console.log($scope.profil.id);  
-     
+                $scope.user_mobilenumber = $scope.profil.mobilenumber;
+
+                console.log("TESTAUSGABE");
+                console.log($scope.user_name);
+                console.log($scope.profil.age);
+                 console.log($scope.user_email);
+                 console.log($scope.user_mobilenumber);
+
+                 $scope.contact = {
+                      // We will use it to save a contact
+      
+            "displayName": "TravelMate3",
+            "name": {
+                "givenName"  : $scope.user_name,
+                "familyName" : $scope.user_last_name,
+            },
+            "phoneNumbers": [
+                {
+                    "value": $scope.user_mobilenumber,
+                    "type": "mobile"
+                },          
+            ],
+            "emails": [
+                {
+                    "value": $scope.user_email,
+                    "type": "home"
+                }
+            ],
+           
+        }     
+        
             });
 
         });
@@ -386,6 +367,7 @@ $scope.loadProfile();
             });
  
       var credentials = {
+          mobilenumber: $scope.newProfil.mobilenumber,
           age: $scope.newProfil.age,
           sex: $scope.newProfil.sex,
           location: $scope.newProfil.location,
@@ -406,8 +388,9 @@ $scope.loadProfile();
     console.log("User_id: ");
     console.log(parseUser_id);
 
- $http.post('http://192.168.123.109:8092/api/v1/profil/create', {
+ $http.post('http://192.168.178.46:8092/api/v1/profil/create', {
     user_id: parseUser_id,
+    mobilenumber: $scope.newProfil.mobilenumber,
     age: $scope.newProfil.age,
     sex: $scope.newProfil.sex,
     location: $scope.newProfil.location,
@@ -438,7 +421,7 @@ $scope.loadProfile();
     var parseUser = JSON.parse(user);
     var user_id = parseUser.id;
 
-    $http.get('http://192.168.123.109:8092/api/v1/profil/' + user_id).then(function(result) {
+    $http.get('http://192.168.178.46:8092/api/v1/profil/' + user_id).then(function(result) {
       
         $scope.profil = result.data.data;
         console.log("Update. Profil:")
@@ -452,6 +435,7 @@ $scope.loadProfile();
       
      //Eingabe vom Fomular (tab-profile-create.html)
      var credentials = {
+          mobilenumber: $scope.profil.mobilenumber,
           age: $scope.profil.age,
           sex: $scope.profil.sex,
           location: $scope.profil.location,
@@ -475,8 +459,9 @@ $scope.loadProfile();
     console.log(parseUser_id);
 
     //Weiterleiten der Daten an Laravel 
-    $http.put('http://192.168.123.109:8092/api/v1/profil/edit/' + user_id, {
-      age: $scope.profil.age,
+    $http.put('http://192.168.178.46:8092/api/v1/profil/edit/' + user_id, {
+          mobilenumber: $scope.profil.mobilenumber,
+          age: $scope.profil.age,
           sex: $scope.profil.sex,
           location: $scope.profil.location,
           destination: $scope.profil.destination,
@@ -486,11 +471,7 @@ $scope.loadProfile();
           about: $scope.profil.about,
           user_id: parseUser_id
     }).success(function(response) {
-            console.log("Profil Updated Successfully");
-            //$ionicHistory.clearCache();
-            //$ionicHistory.clearHistory();
-            //$state.go('tab.profile');
-            
+            console.log("Profil Updated Successfully");          
             $scope.goProfil();
         }).error(function(){
           console.log("ERROR Profil cannot be updated");
@@ -498,33 +479,34 @@ $scope.loadProfile();
 
     };
 
-    //Weiterleiten zum ContactCtrl 
-   /* $scope.contact = function(){
-      console.log("working");
-      $state.go('tab.mate-contact');
-    };*/
+     $scope.createContact = function() {
+      var alertPopup ='';
+      console.log("In createContact");
+        $ionicPlatform.ready(function() { 
+            $cordovaContacts.save($scope.contact).then(function(result) {
+                console.log(JSON.stringify(result));
+                alertPopup = $ionicPopup.alert({
 
-    $scope.contact = function(){
-      var email = "manuela.reker@gmx.de";
-      document.addEventListener("deviceready", onDeviceReady, false);
-       
+                title: 'Contact saved',
 
-       function onDeviceReady() {
-        cordova.plugins.email.isAvailable(
-          function (isAvailable) {
+                template: '',
 
-         console.log("Cordova is ready");
-         //navigator.notification.alert("Cordova is ready!");
-         cordova.plugins.email.open({
-            to:      'max@mustermann.de',
-            cc:      'erika@mustermann.de',
-            bcc:     ['john@doe.com', 'jane@doe.com'],
-            subject: 'Greetings',
-            body:    'How are you? Nice greetings from Leipzig'
+               });
+
+                alertPopup.then(function(res) {
+
+      console.log('Thanks');
+
+   });
+            }, function(error) {
+                console.log(error);
         });
-       });
-       };
-   };
+
+    });
+  };
+
+
+  
 
 
     $scope.goEdit = function(){
@@ -552,6 +534,49 @@ $scope.loadProfile();
       $scope.loadProfile();
       $state.go('tab.profil');
     };
-    
+})
+
+/*.controller('TestCtrl', function($scope, $cordovaContacts,$ionicPlatform) {
+
+  $scope.contact = {     // We will use it to save a contact
+      
+            "displayName": "TravelMate2",
+            "name": {
+                "givenName"  : "Nina",
+                "familyName" : "TravelMate",
+            },
+            "phoneNumbers": [
+                {
+                    "value": "123456789",
+                    "type": "mobile"
+                },
+                {
+                    "value": "+385914600731",
+                    "type": "phone"
+                }               
+            ],
+            "emails": [
+                {
+                    "value": "nina@test.de",
+                    "type": "home"
+                }
+            ],
+           
+        }     
+  console.log("TestCtrl");
+  
+
+ $scope.createContact = function() {
+  $ionicPlatform.ready(function() { 
+    $cordovaContacts.save($scope.contact).then(function(result) {
+        console.log(JSON.stringify(result));
+    }, function(error) {
+        console.log(error);
+    });
 
 });
+  };
+
+
+   
+});*/
