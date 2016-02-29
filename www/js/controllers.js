@@ -502,21 +502,12 @@ angular.module('starter.controllers', ['ui.router'])
       };
 
       $scope.alertPhone = function(){
+
           var alertPopup ='';
 
            alertPopup = $ionicPopup.alert({
                     title: 'Adding your phone number',
                     content: 'Be aware, by adding your phone number other TravelMates will be able to save it to their phone contacts.'
                  });
-
-                alertPopup.then(function(res) {
-
-                });
-            }, function(error) {
-                  console.log(error);
-            });
-
-
-
       };
 })
