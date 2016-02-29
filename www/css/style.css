@@ -1,1 +1,75 @@
 /* Empty. Add your own CSS if you like */
+
+
+#edit{
+	font-size: 12px;
+	font-family: Arial;
+}
+#about{
+	border: 0px;
+}
+
+#contact{
+	float: right;
+}
+
+
+#login{
+	background: url('../img/login_hg.jpg') no-repeat center center fixed;
+	background-size: cover;
+}
+
+#noBG{
+	background: url('') no-repeat center center fixed;
+	background-color: #FFFFFF;
+}
+
+#greyspan{
+	color: grey;
+}
+
+.pane {
+	background: url('../img/pane_img.jpg') no-repeat center center fixed;
+	background-size: cover;
+}
+
+
+
+.profil-information h2{
+	font-weight: bold;
+	font-size: 12px;
+	color: #669999;
+}
+
+.profil-information h3{
+	font-size: 18px;
+	color: grey;
+	font-weight: bold;
+}
+
+.profil-information p{
+	font-weight: normal;
+	
+}
+
+.profil-information span{
+	font-weight: bold;
+	font-size: 12px;
+	color: #669999;
+	
+}
+
+.profil-information a{
+	font-size: 14px;
+	color: grey;
+	font-weight: normal;
+	padding: 50 px;
+}
+
+.errors p{
+	color: red;
+
+}
+
+
+

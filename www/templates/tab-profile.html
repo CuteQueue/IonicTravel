@@ -1,0 +1,57 @@
+<ion-view view-title="Profile" class="pane">
+    <button class="button button-small icon ion ion-edit"></button></h2>  
+    <ion-content>
+    <div class="card list">
+
+        <div class="item item-thumbnail-left">
+           <img src="{{images[4].pic}}"></br>
+           <button class="button button-small button-positive icon ion ion-edit" ng-click="goEdit()"><span id ="edit">Edit</span></button>
+        </div>
+
+        <div class = "profil-information">
+           <ion-list>
+              <ion-item >
+                 <h3> {{ user_name }} {{user_last_name}}</h3>
+              </ion-item>
+              <ion-item >
+                 <h2>Age:</h2>
+                 <p>{{profil.age}}</p>
+              </ion-item>
+              <ion-item >
+                 <h2>Gender:</h2>
+                 <p>{{profil.sex}}</p>
+              </ion-item>
+              <ion-item >
+                <h2>Location: </h2>
+                <p>{{profil.location}}</p>
+              </ion-item>
+              <ion-item >
+                <h2>Destination:</h2>
+                <p> {{profil.destination}} </p>
+              </ion-item>
+              <ion-item >
+                 <h2>Startdate:</h2>
+                 <p> {{profil.startdate}}</p>
+              </ion-item>
+              <ion-item >
+                 <h2>Looking for:</h2>
+                 <p>{{profil.looking_for}}</p>
+              </ion-item>
+               <ion-item >
+                 <h2>Interests:</h2>
+                 <p>{{profil.interests}}</p>
+              </ion-item>
+              <ion-item >
+                 <h2>About me:</h2>
+              <div id ="about" class="item item-text-wrap">
+                  {{profil.about}}
+              </div>
+              </ion-item>
+           </ion-list>
+        </div>
+   </div>
+  </ion-content>
+</ion-view>
+
+        
+        

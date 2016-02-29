@@ -6,10 +6,13 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'satellizer'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'satellizer', 'ngCordova'])
 
 
-.run(function($ionicPlatform, $rootScope, $auth, $state) {
+.run(function($ionicPlatform, $rootScope, $auth, $state, $cordovaEmailComposer) {
+  document.addEventListener('deviceready', function () {
+    // cordova.plugins.email is now available
+}, false);
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -26,26 +29,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
   //Überprüfung, ob User schon eingeloggt ist
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
-        console.log("TEST");
       if (toState.authRequired && !$auth.isAuthenticated()){ 
-        // User isn’t authenticated
-        console.log("Nicht eingeloggt");
+        console.log("User ist nicht eingeloggt");
         $state.transitionTo("auth");
         event.preventDefault(); 
       }
     });
 })
 
+
+
 .config(function($stateProvider, $urlRouterProvider, $authProvider) {
-  $authProvider.loginUrl = 'http://localhost:8000/api/v1/authenticate';
-  $authProvider.signupUrl = 'http://localhost:8000/api/v1/user';
+  $authProvider.loginUrl = 'http://192.168.178.46:8092/api/v1/authenticate';
+  $authProvider.signupUrl = 'http://192.168.178.46:8092/api/v1/user';
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
 
-    .state('auth', {
+   .state('auth', {
       cache:false,
       url: '/auth',
           templateUrl: 'templates/login.html',
@@ -106,32 +109,81 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     })
 
  
-  .state('tab.users', {
-    url: '/users',
+  .state('tab.findMate', {
+    url: '/findMate',
     authRequired: true,
     views: {
-      'tab-users': {
-        templateUrl: 'templates/users.html',
-        controller: 'UsersCtrl',
+      'findMate': {
+        templateUrl: 'templates/findMate.html',
+        controller: 'findMateCtrl',
+      }
+    }
+  })
+
+  
+
+   .state('tab.mate-profile', {
+    //cache: false,
+    url: '/findMate/mate-profile/:id',
+    authRequired: true,
+    views: {
+      'findMate': {
+        templateUrl: 'templates/tab-mate-profile.html',
+        controller: 'ProfileCtrl',
+      }
+    }
+  })
+
+  .state('tab.mate-contact', {
+    //cache: false,
+    url: '/findMate/contact/:id',
+    authRequired: true,
+    views: {
+      'findMate': {
+        templateUrl: 'templates/contact.html',
+        controller: 'ContactCtrl',
       }
     }
   })
   
 
-  .state('tab.account', {
+  .state('tab.profile', {
     cache:false,
-    url: '/account',
+    url: '/profile',
     authRequired: true,
     views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl',
+      'tab-profile': {
+        templateUrl: 'templates/tab-profile.html',
+        controller: 'ProfileCtrl',
+      }
+    }
+  })
+
+  .state('tab.create', {
+    url: '/profile/create',
+    authRequired: true,
+    views: {
+      'tab-profile': {
+        templateUrl: 'templates/tab-profile-create.html',
+        controller: 'ProfileCtrl',
+      }
+    }
+  })
+
+  .state('tab.update', {
+    url: '/profile/update',
+    //cache:false,
+    authRequired: true,
+    views: {
+      'tab-profile': {
+        templateUrl: 'templates/tab-profile-update.html',
+        controller: 'ProfileCtrl',
       }
     }
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+ $urlRouterProvider.otherwise('/auth');
 
 
 });
