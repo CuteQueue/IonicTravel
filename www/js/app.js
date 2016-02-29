@@ -40,8 +40,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
 
 .config(function($stateProvider, $urlRouterProvider, $authProvider) {
-  $authProvider.loginUrl = 'http://192.168.178.46:8092/api/v1/authenticate';
-  $authProvider.signupUrl = 'http://192.168.178.46:8092/api/v1/user';
+  $authProvider.loginUrl = 'http://192.168.178.142:8092/api/v1/authenticate';
+  $authProvider.signupUrl = 'http://192.168.178.142:8092/api/v1/user';
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.

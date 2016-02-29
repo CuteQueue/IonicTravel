@@ -51,7 +51,7 @@ angular.module('starter.controllers', ['ui.router'])
  
             $auth.login(credentials).then(function() {
                 // Return an $http request for the authenticated user
-                $http.get('http://192.168.178.46:8092/api/v1/authenticate/user').success(function(response){
+                $http.get('http://192.168.178.142:8092/api/v1/authenticate/user').success(function(response){
                     // Stringify the retured data
                     var user = JSON.stringify(response.user);
  
@@ -80,8 +80,9 @@ angular.module('starter.controllers', ['ui.router'])
       
 })
 
- .controller('SignupCtrl', function($scope, $location, $auth, $ionicHistory) {
+ .controller('SignupCtrl', function($scope, $location, $auth, $ionicHistory, AppImages) {
 
+        $scope.images = AppImages.all();
         $scope.name = '';
         $scope.last_name = '';
         $scope.email='';
@@ -116,8 +117,9 @@ angular.module('starter.controllers', ['ui.router'])
 
 
 
-.controller('findMateCtrl', function($scope, $http, $auth) {
+.controller('findMateCtrl', function($scope, $http, $auth, AppImages) {
  
+  $scope.images = AppImages.all();
   $scope.destination='';
   $scope.search = {};
   $scope.Ausgabe = {};
@@ -134,7 +136,7 @@ angular.module('starter.controllers', ['ui.router'])
     var destination = $scope.search.destination;
 
     //Array der gesamten User
-    $http.get('http://192.168.178.46:8092/api/v1/user').then(function(result) {
+    $http.get('http://192.168.178.142:8092/api/v1/user').then(function(result) {
         $scope.users = result.data.data;
 
         //User-Array durchgehen
@@ -142,7 +144,7 @@ angular.module('starter.controllers', ['ui.router'])
          // console.log($scope.users[suchID].id);
           var user_id = $scope.users[suchID].id;
           console.log('ID: ' + user_id);
-          $http.get('http://192.168.178.46:8092/api/v1/profil/' + user_id).then(function(result) {
+          $http.get('http://192.168.178.142:8092/api/v1/profil/' + user_id).then(function(result) {
             $scope.profiles = result.data.data;
             
             if($scope.profiles.destination == destination){
@@ -150,10 +152,10 @@ angular.module('starter.controllers', ['ui.router'])
               zeahler2 = $scope.profiles.user_id;
               $scope.profileAusgabe[zeahler2] = $scope.profiles;
               zeahler2++;
-             console.log($scope.profileAusgabe);
+              console.log($scope.profileAusgabe);
               console.log($scope.profiles.id);
                 //User mit passendem Reiseziel in Array speichern
-                $http.get('http://192.168.178.46:8092/api/v1/user/' + $scope.profiles.user_id).then(function(result) {
+                $http.get('http://192.168.178.142:8092/api/v1/user/' + $scope.profiles.user_id).then(function(result) {
                   $scope.users = result.data.data;
                   $scope.Ausgabe[zaehler] = $scope.users;
                   zaehler++;
@@ -210,7 +212,8 @@ angular.module('starter.controllers', ['ui.router'])
 
 
 
-.controller('ProfileCtrl', function($scope, $http, $auth, $rootScope, $state, $ionicHistory, $stateParams, $cordovaContacts, $ionicPlatform, $ionicPopup) {
+.controller('ProfileCtrl', function($scope, $http, $auth, $rootScope, $state, $ionicHistory, $stateParams, AppImages, $cordovaContacts, $ionicPlatform, $ionicPopup) {
+    $scope.images = AppImages.all();
     $ionicHistory.clearCache();
     $ionicHistory.clearHistory();
     $ionicHistory.nextViewOptions({
@@ -257,7 +260,7 @@ angular.module('starter.controllers', ['ui.router'])
         console.log("user_id:");
         console.log(user_id);
 
-        $http.get('http://192.168.178.46:8092/api/v1/profil/' + user_id).then(function(result) {
+        $http.get('http://192.168.178.142:8092/api/v1/profil/' + user_id).then(function(result) {
             if(result.data.data.id == null){
 
                 console.log("Kein Profil vorhanden");
@@ -277,7 +280,7 @@ angular.module('starter.controllers', ['ui.router'])
       //Wenn ID übergeben wurde, wird das Profil zur übergebenden User ID geladen
    
 
-       $http.get('http://192.168.178.46:8092/api/v1/user/' + user_id).then(function(result) {
+       $http.get('http://192.168.178.142:8092/api/v1/user/' + user_id).then(function(result) {
           $scope.user = result.data.data;
 
           $scope.user_name = $scope.user.name;
@@ -289,7 +292,7 @@ angular.module('starter.controllers', ['ui.router'])
           console.log($scope.user.name);
        
 
-            $http.get('http://192.168.178.46:8092/api/v1/profil/' + $scope.user.id).then(function(result) {
+            $http.get('http://192.168.178.142:8092/api/v1/profil/' + $scope.user.id).then(function(result) {
                 console.log($scope.user.id);
                 $scope.profil = result.data.data;
                 console.log($scope.profil);
@@ -388,7 +391,7 @@ $scope.loadProfile();
     console.log("User_id: ");
     console.log(parseUser_id);
 
- $http.post('http://192.168.178.46:8092/api/v1/profil/create', {
+ $http.post('http://192.168.178.142:8092/api/v1/profil/create', {
     user_id: parseUser_id,
     mobilenumber: $scope.newProfil.mobilenumber,
     age: $scope.newProfil.age,
@@ -421,7 +424,7 @@ $scope.loadProfile();
     var parseUser = JSON.parse(user);
     var user_id = parseUser.id;
 
-    $http.get('http://192.168.178.46:8092/api/v1/profil/' + user_id).then(function(result) {
+    $http.get('http://192.168.178.142:8092/api/v1/profil/' + user_id).then(function(result) {
       
         $scope.profil = result.data.data;
         console.log("Update. Profil:")
@@ -459,7 +462,7 @@ $scope.loadProfile();
     console.log(parseUser_id);
 
     //Weiterleiten der Daten an Laravel 
-    $http.put('http://192.168.178.46:8092/api/v1/profil/edit/' + user_id, {
+    $http.put('http://192.168.178.142:8092/api/v1/profil/edit/' + user_id, {
           mobilenumber: $scope.profil.mobilenumber,
           age: $scope.profil.age,
           sex: $scope.profil.sex,

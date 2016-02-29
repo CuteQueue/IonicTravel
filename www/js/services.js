@@ -62,6 +62,12 @@ angular.module('starter.services', [])
   },{
     id: 2,
     pic: 'img/train_img.jpg'
+  },{
+    id: 3,
+    pic: 'img/TM_register.jpg'
+  },{
+    id: 4,
+    pic: 'img/user_img.jpg'
   }];
 
   return {
